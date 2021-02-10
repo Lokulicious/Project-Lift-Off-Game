@@ -4,9 +4,10 @@ using GXPEngine;
 
 public class MyGame : Game
 {
-	public MyGame() : base(800, 600, false)
+	public MyGame() : base(1920, 1080, true)
 	{
-
+		Level level = new Level();
+		AddChild(level);
     }
 
     void Update()

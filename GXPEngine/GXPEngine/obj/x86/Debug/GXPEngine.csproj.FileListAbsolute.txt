@@ -1,0 +1,6 @@
+D:\School\Year 1\Term 3\Project Lift-Off\Game\Project Lift-Off\GXPEngine\GXPEngine\obj\x86\Debug\GXPEngine.csprojAssemblyReference.cache
+D:\School\Year 1\Term 3\Project Lift-Off\Game\Project Lift-Off\GXPEngine\GXPEngine\obj\x86\Debug\GXPEngine.csproj.CoreCompileInputs.cache
+D:\School\Year 1\Term 3\Project Lift-Off\Game\Project Lift-Off\GXPEngine\GXPEngine\bin\Debug\GXPEngine.exe
+D:\School\Year 1\Term 3\Project Lift-Off\Game\Project Lift-Off\GXPEngine\GXPEngine\bin\Debug\GXPEngine.pdb
+D:\School\Year 1\Term 3\Project Lift-Off\Game\Project Lift-Off\GXPEngine\GXPEngine\obj\x86\Debug\GXPEngine.exe
+D:\School\Year 1\Term 3\Project Lift-Off\Game\Project Lift-Off\GXPEngine\GXPEngine\obj\x86\Debug\GXPEngine.pdb
