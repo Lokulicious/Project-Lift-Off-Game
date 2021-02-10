@@ -9,6 +9,7 @@ namespace GXPEngine
     {
 
         public bool isTouchingWall = false;
+        public bool isJumping = false;
 
         public Player() : base("player_big.png")
         {
@@ -32,6 +33,13 @@ namespace GXPEngine
             {
                 x += 5;
             }
+
+
+            if (Input.GetKeyDown(Key.SPACE))
+            {
+                isJumping = true;
+            }
+
 
             Console.WriteLine(isTouchingWall);
         }

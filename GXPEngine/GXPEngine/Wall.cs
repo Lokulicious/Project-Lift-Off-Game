@@ -25,6 +25,13 @@ public class Wall : Sprite
         WallReset();
         Sliding();
         //y += 5; //test for wall reset
+
+        if (player.isJumping == true)
+        {
+            player.isTouchingWall = false;
+        }
+
+
     }
 
 
@@ -55,16 +62,18 @@ public class Wall : Sprite
             Console.WriteLine("wall collison");
             Player player = other as Player;
             player.isTouchingWall = true;
+            player.isJumping = false;
         }
-
-
-        void WallJumpMovement()
-        {
-            if (Input.GetKeyDown(Key.SPACE))
-            {
-                jumpForce = 5f;
-            }
-        }
-
     }
+
+
+    void WallJumpMovement()
+    {
+        if (Input.GetKeyDown(Key.SPACE))
+        {
+            jumpForce = 5f;
+        }
+    }
+
+
 }
