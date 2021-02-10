@@ -8,9 +8,11 @@ namespace GXPEngine
 
         float wallLength;
 
-        float wallStartPositionY = -50;
-
+        float wallStartPositionY = 100;
         float wallPositionX = 600;
+
+        float gravity;
+        float jumpforce;
 
         public Level()
         {
@@ -21,7 +23,7 @@ namespace GXPEngine
 
         void GenerateLevel()
         {
-            for (y = 0; y < 20; y++)
+            for (y = 0; y < 25; y++)
             {
                 Wall wallLeft = new Wall();
                 wallLeft.y = y * wallLeft.height - wallStartPositionY;
@@ -29,12 +31,21 @@ namespace GXPEngine
                 AddChild(wallLeft);
             }            
             
-            for (y = 0; y < 20; y++)
+            for (y = 0; y < 25; y++)
             {
                 Wall wallRight = new Wall();
-                wallRight.y = y * wallRight.height;
+                wallRight.y = y * wallRight.height - wallStartPositionY;
                 wallRight.x = game.width - wallPositionX;
                 AddChild(wallRight);
+            }
+        }
+
+
+        void WallJump()
+        {
+            if (Input.GetKeyDown(Key.SPACE))
+            {
+
             }
         }
 
@@ -43,8 +54,6 @@ namespace GXPEngine
         {
 
         }
-
-
 
 
     }

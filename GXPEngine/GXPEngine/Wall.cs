@@ -8,12 +8,18 @@ namespace GXPEngine
 
         public Wall() : base("square.png")
         {
-            SetOrigin(width / 2, height / 2);
+            SetOrigin(width / 2, 0);
         }
 
         void Update()
         {
-
+            WallSliding();
         }
+
+        void WallSliding()
+        {
+            this.y -= 0.5f;
+        }
+
     }
 }
