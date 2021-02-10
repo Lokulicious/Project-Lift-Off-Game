@@ -1,5 +1,6 @@
 ﻿using GXPEngine;
 using System.Collections;
+using System;
 
 namespace GXPEngine
 {
@@ -9,29 +10,32 @@ namespace GXPEngine
         float wallLength;
 
         float wallStartPositionY = 100;
-        float wallPositionX = 600;
 
-        float gravity;
-        float jumpforce;
+        float wallPositionX = 500;  //452
+
+
 
         public Level()
         {
             GenerateLevel();
             wallLength = game.height + 50;
-            wallPositionX= 600;
+
+            wallPositionX = 452;
+            Console.WriteLine(wallPositionX);
         }
 
         void GenerateLevel()
         {
-            for (y = 0; y < 25; y++)
+            for (y = 0; y < 13; y++)
             {
                 Wall wallLeft = new Wall();
                 wallLeft.y = y * wallLeft.height - wallStartPositionY;
                 wallLeft.x = wallPositionX;
+                wallLeft.scaleX = -1;
                 AddChild(wallLeft);
             }            
             
-            for (y = 0; y < 25; y++)
+            for (y = 0; y < 13; y++)
             {
                 Wall wallRight = new Wall();
                 wallRight.y = y * wallRight.height - wallStartPositionY;
@@ -41,13 +45,15 @@ namespace GXPEngine
         }
 
 
-        void WallJump()
+        void OnCollision(GameObject other)
         {
-            if (Input.GetKeyDown(Key.SPACE))
+            if (other is Player)
             {
-
+                y -= 1f;
+                Console.WriteLine("sliding");
             }
         }
+
 
 
         void Update()
