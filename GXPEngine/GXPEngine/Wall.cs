@@ -1,42 +1,62 @@
 ﻿using GXPEngine;
 using System.Collections;
+using System;
 
-namespace GXPEngine
+public class Wall : Sprite
 {
-    public class Wall : Sprite
+
+    private Player player;
+
+    float gravity;
+    float jumpForce;
+
+    public Wall(Player player) : base("GrassWallRightSmall.png")
     {
+        SetOrigin(width / 2, 0);
+        jumpForce = 0f;
 
-        float gravity;
-        float jumpForce;
+        this.player = player;
+    }
 
-        public Wall() : base("GrassWallRightSmall.png")
+
+
+    void Update()
+    {
+        WallReset();
+        Sliding();
+        //y += 5; //test for wall reset
+    }
+
+
+
+    void Sliding()
+    {
+        if (player.isTouchingWall == true)
         {
-            SetOrigin(width / 2, 0);
-            jumpForce = 0f;
+            y -= 1f;
+            Console.WriteLine("sliding");
+        }
+    }
+
+
+
+    void WallReset()
+    {
+        if (this.y > 1250)
+        {
+            this.y = y - (height * 12);
+        }
+    }
+
+    void OnCollision(GameObject other)
+    {
+        if (other is Player)
+        {
+            Console.WriteLine("wall collison");
+            Player player = other as Player;
+            player.isTouchingWall = true;
         }
 
-
-
-        void Update()
-        {
-            WallReset();
-            WallJumpMovement();
-            y += 5;
-
-        }
-
-
-
-
-
-
-        void WallReset()
-        {
-            if (this.y > 1250)
-            {
-                this.y = y - (height * 12);
-            }
-        }
 
         void WallJumpMovement()
         {

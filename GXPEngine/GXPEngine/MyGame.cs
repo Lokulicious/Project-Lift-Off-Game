@@ -9,8 +9,6 @@ public class MyGame : Game
 		Level level = new Level();
 		AddChild(level);
 
-		Player player = new Player();
-		AddChild(player);
     }
 
     void Update()

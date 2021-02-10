@@ -7,6 +7,9 @@ namespace GXPEngine
     public class Level : GameObject
     {
 
+
+        Player player = new Player();
+
         float wallLength;
 
         float wallStartPositionY = 100;
@@ -28,7 +31,7 @@ namespace GXPEngine
         {
             for (y = 0; y < 13; y++)
             {
-                Wall wallLeft = new Wall();
+                Wall wallLeft = new Wall(player);
                 wallLeft.y = y * wallLeft.height - wallStartPositionY;
                 wallLeft.x = wallPositionX;
                 wallLeft.scaleX = -1;
@@ -37,22 +40,18 @@ namespace GXPEngine
             
             for (y = 0; y < 13; y++)
             {
-                Wall wallRight = new Wall();
+                Wall wallRight = new Wall(player);
                 wallRight.y = y * wallRight.height - wallStartPositionY;
                 wallRight.x = game.width - wallPositionX;
                 AddChild(wallRight);
             }
+
+
+            AddChild(player);
+
         }
 
 
-        void OnCollision(GameObject other)
-        {
-            if (other is Player)
-            {
-                y -= 1f;
-                Console.WriteLine("sliding");
-            }
-        }
 
 
 

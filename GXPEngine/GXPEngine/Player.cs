@@ -1,10 +1,14 @@
 ﻿using GXPEngine;
 using System.Collections;
+using System;
+
 
 namespace GXPEngine
 {
     public class Player : Sprite
     {
+
+        public bool isTouchingWall = false;
 
         public Player() : base("player_big.png")
         {
@@ -28,6 +32,8 @@ namespace GXPEngine
             {
                 x += 5;
             }
+
+            Console.WriteLine(isTouchingWall);
         }
     }
 }
