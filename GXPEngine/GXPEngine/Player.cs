@@ -11,6 +11,9 @@ namespace GXPEngine
         public bool isTouchingWall = false;
         public bool isJumping = false;
 
+        bool rightSide = false;
+        float jumpforce = 15f;
+
         public Player() : base("player_big.png")
         {
             SetOrigin(width / 2, height / 2);
@@ -22,26 +25,40 @@ namespace GXPEngine
 
         void Update()
         {
-            //temoprary movement for testing
-
-            if (Input.GetKey(Key.A))
-            {
-                x -= 5;
-            }
-            
-            if (Input.GetKey(Key.D))
-            {
-                x += 5;
-            }
+            Jump();
+        }
 
 
-            if (Input.GetKeyDown(Key.SPACE))
+        void Jump()
+        {
+            if (Input.GetKeyDown(Key.SPACE) && isJumping == false)
             {
                 isJumping = true;
+                if (x < (game.width / 2))
+                {
+                    rightSide = false;
+                }
+                else if (x > (game.width / 2))
+                {
+                    rightSide = true;
+                }
             }
 
+            if (isJumping)
+            {
+                if (rightSide == false)
+                {
+                    MoveUntilCollision(jumpforce, 0);
+                    x = x + 10;
+                }
+                else if (rightSide == true)
+                {
+                    MoveUntilCollision(-jumpforce, 0);
+                    x = x - 10;
+                }
+            }
 
-            Console.WriteLine(isTouchingWall);
         }
+
     }
 }

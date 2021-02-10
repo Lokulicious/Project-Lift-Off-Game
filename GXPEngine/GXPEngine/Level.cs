@@ -11,9 +11,7 @@ namespace GXPEngine
         Player player = new Player();
 
         float wallLength;
-
         float wallStartPositionY = 100;
-
         float wallPositionX = 500;  //452
 
 
@@ -29,7 +27,7 @@ namespace GXPEngine
 
         void GenerateLevel()
         {
-            for (y = 0; y < 13; y++)
+            for (y = 0; y < 18; y++)
             {
                 Wall wallLeft = new Wall(player);
                 wallLeft.y = y * wallLeft.height - wallStartPositionY;
@@ -38,7 +36,7 @@ namespace GXPEngine
                 AddChild(wallLeft);
             }            
             
-            for (y = 0; y < 13; y++)
+            for (y = 0; y < 18; y++)
             {
                 Wall wallRight = new Wall(player);
                 wallRight.y = y * wallRight.height - wallStartPositionY;

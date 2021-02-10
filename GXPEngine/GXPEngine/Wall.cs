@@ -7,8 +7,10 @@ public class Wall : Sprite
 
     private Player player;
 
+    float speedY;
     float gravity;
     float jumpForce;
+    
 
     public Wall(Player player) : base("GrassWallRightSmall.png")
     {
@@ -24,13 +26,9 @@ public class Wall : Sprite
     {
         WallReset();
         Sliding();
+        WallJumpMovement();
+
         //y += 5; //test for wall reset
-
-        if (player.isJumping == true)
-        {
-            player.isTouchingWall = false;
-        }
-
 
     }
 
@@ -41,7 +39,12 @@ public class Wall : Sprite
         if (player.isTouchingWall == true)
         {
             y -= 1f;
-            Console.WriteLine("sliding");
+        }
+
+
+        if (player.isJumping == true)
+        {
+            player.isTouchingWall = false;
         }
     }
 
@@ -49,9 +52,9 @@ public class Wall : Sprite
 
     void WallReset()
     {
-        if (this.y > 1250)
+        if (this.y > 1550)
         {
-            this.y = y - (height * 12);
+            this.y = y - (height * 17);
         }
     }
 
@@ -72,7 +75,18 @@ public class Wall : Sprite
         if (Input.GetKeyDown(Key.SPACE))
         {
             jumpForce = 5f;
+            gravity = -1f;
+
+            speedY = jumpForce + gravity;
         }
+        if (Input.GetKeyUp(Key.SPACE))
+        {
+            speedY = 0;
+        }
+
+        y = y + speedY;
+
+        
     }
 
 
