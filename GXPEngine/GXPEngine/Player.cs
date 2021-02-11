@@ -11,7 +11,7 @@ namespace GXPEngine
         public bool isTouchingWall = false;
         public bool isJumping = false;
         bool startFlip = false;
-        GameObject[] collisions;
+        GameObject[] collisions = new GameObject[0];
 
         bool rightSide = false;
         float jumpforce = 15f;
@@ -77,7 +77,7 @@ namespace GXPEngine
             {
                 if (startFlip)
                 {
-                    SetCycle(1, 4,20);
+                    SetCycle(1, 4,15);
                     if (Time.now - startFlipTime > 100)
                     {
                         startFlip = false;
@@ -85,11 +85,11 @@ namespace GXPEngine
                 }
                 else if (i is Wall && rightSide)
                 {
-                    SetCycle(5, 1);
+                    SetCycle(0, 1);
                 }
                 else if (i is Wall && !rightSide)
                 {
-                    SetCycle(0, 1);
+                    SetCycle(5, 1);
                 }
             }
         }
@@ -101,6 +101,20 @@ namespace GXPEngine
         {
             return heightClimbed;
         }
+        public bool hitRock()
+        { 
+                foreach (GameObject i in collisions)
+                {
+                    if (i is DroppedThing)
+                    {
+                        return true;
+                    }
+                }
+            
+            return false;
+        }
+        
+        
        
 
     }

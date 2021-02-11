@@ -15,6 +15,7 @@ namespace GXPEngine
         float wallPositionX = 500;  //452
         bool firstDropperMade = false;
         bool secondDropperMade = false;
+        bool lost = false;
 
         public Level()
         {
@@ -55,6 +56,8 @@ namespace GXPEngine
         
         void Update()
         {
+            checkIfLost();
+
            if(player.getHeightClimbed() >=10 && !firstDropperMade)
             {
                 AddChild(new Dropper(2500,3,player));
@@ -65,7 +68,20 @@ namespace GXPEngine
                 AddChild(new Dropper(1000, 6,player));
                 secondDropperMade = true;
             }
+            
+            
 
+        }
+        public void checkIfLost()
+        {
+            if (player.hitRock())
+            {
+                lost = true;
+            }
+        }
+        public bool Lost()
+        {
+            return lost;
         }
 
 
