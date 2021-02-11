@@ -8,12 +8,11 @@ public class MyGame : Game
 	{
 		Level level = new Level();
 		AddChild(level);
-
     }
 
     void Update()
 	{
-
+		
 	}
 
 	static void Main()

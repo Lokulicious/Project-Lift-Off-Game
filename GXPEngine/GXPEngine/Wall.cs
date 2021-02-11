@@ -91,7 +91,7 @@ public class Wall : Sprite
         if (player.isJumping)
         {
             speedY -= gravity; //apply gravity
-            y += speedY; //apply movement
+            y += speedY * Time.deltaTime; //apply movement
         }
 
     }
