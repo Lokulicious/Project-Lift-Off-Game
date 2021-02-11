@@ -13,7 +13,7 @@ namespace GXPEngine
 
         float wallLength;
         float wallStartPositionY = 100;
-        float wallPositionX = 600;  //452
+        float wallPositionX = 600;
         bool firstDropperMade = false;
         bool secondDropperMade = false;
 
@@ -28,6 +28,32 @@ namespace GXPEngine
         void GenerateLevel()
         {
             AddChild(background);
+
+            for (int x = 0; x < 5; x++)
+            {
+                for (int y = 0; y < 9; y++)
+                {
+                    FilledWall filledwall = new FilledWall();
+                    filledwall.x = x * filledwall.width;
+                    filledwall.y = y * filledwall.height - 50;
+                    AddChild(filledwall);
+                }
+            }
+
+            for (int x = 0; x < 5; x++)
+            {
+                for (int y = 0; y < 9; y++)
+                {
+                    FilledWall filledwall = new FilledWall();
+                    filledwall.x = game.width - x * filledwall.width - 50;
+                    filledwall.y = y * filledwall.height - 50;
+                    AddChild(filledwall);
+                }
+            }
+
+
+
+
             for (y = 0; y < 18; y++)
             {
                 Wall wallLeft = new Wall(player);

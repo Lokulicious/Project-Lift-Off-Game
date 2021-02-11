@@ -6,6 +6,7 @@ using GXPEngine;
 
 namespace GXPEngine
 {
+
     class Pickup : AnimationSprite
     {
         public Pickup (string filename,int cols, int rows) : base(filename,cols,rows) { 

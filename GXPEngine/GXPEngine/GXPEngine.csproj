@@ -39,6 +39,7 @@
     <Compile Include="Background.cs" />
     <Compile Include="DroppedThing.cs" />
     <Compile Include="Dropper.cs" />
+    <Compile Include="FilledWall.cs" />
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />
     <Compile Include="GXPEngine\AddOns\TiledLoader.cs" />
     <Compile Include="Level.cs" />

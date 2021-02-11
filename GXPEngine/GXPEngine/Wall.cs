@@ -2,21 +2,18 @@
 using System.Collections;
 using System;
 
+
 public class Wall : Sprite
 {
 
     private Player player;
 
-    float speedY;
-    float gravity;
-    float jumpForce;
-    
+    float moveSpeed;
 
     public Wall(Player player) : base("GrassWallRightSmall.png")
     {
         SetOrigin(width / 2, 0);
-        jumpForce = 30f;
-        gravity = 1f;
+        moveSpeed = 3;
 
         this.player = player;
     }
@@ -25,9 +22,7 @@ public class Wall : Sprite
 
     void Update()
     {
-        WallReset();
-        Sliding();
-        WallJumpMovement();
+        WallMovement();
 
         //y += 5; //test for wall reset
 
@@ -37,7 +32,7 @@ public class Wall : Sprite
 
 
 
-    void Sliding()
+/*    void Sliding()
     {
         if (player.isTouchingWall == true)
         {
@@ -49,12 +44,15 @@ public class Wall : Sprite
         {
             player.isTouchingWall = false;
         }
-    }
+    }*/
 
 
 
-    void WallReset()
+    void WallMovement()
     {
+
+        y += moveSpeed;
+
         if (this.y > 1550)
         {
             this.y = y - (height * 17);
@@ -80,7 +78,7 @@ public class Wall : Sprite
     }
 
 
-    void WallJumpMovement()
+/*    void WallJumpMovement()
     {
         if (Input.GetKeyDown(Key.SPACE) && player.isJumping == false)
         {
@@ -97,6 +95,6 @@ public class Wall : Sprite
         }
 
     }
-
+*/
 
 }
