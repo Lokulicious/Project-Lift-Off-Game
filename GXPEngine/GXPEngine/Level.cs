@@ -57,12 +57,12 @@ namespace GXPEngine
         {
            if(player.getHeightClimbed() >=10 && !firstDropperMade)
             {
-                AddChild(new Dropper(2500,3));
+                AddChild(new Dropper(2500,3,player));
                 firstDropperMade = true;
             }
             if (player.getHeightClimbed() >= 60 && !secondDropperMade)
             {
-                AddChild(new Dropper(1000, 6));
+                AddChild(new Dropper(1000, 6,player));
                 secondDropperMade = true;
             }
 

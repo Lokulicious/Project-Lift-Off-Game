@@ -10,16 +10,18 @@ namespace GXPEngine
     {
         private float timeOfLastDrop = 0;
 
-        
+        private Player _player;
+
         float frequency;
         bool toDrop = false;
         int endAfter;
         int drops;
-        public Dropper( float frequency, int endAfter) 
+        public Dropper( float frequency, int endAfter, Player player) 
         {
             this.frequency = frequency;
             this.endAfter = endAfter;
- 
+
+            _player = player;
         }
         public void Update()
         {
@@ -27,7 +29,7 @@ namespace GXPEngine
             {
                 if (Time.now % frequency == 0)
                 {
-                    AddChild(new DroppedThing(5, GetFallLane()));
+                    AddChild(new DroppedThing(5, GetFallLane(),_player));
                     drops++;
                 }
             }
