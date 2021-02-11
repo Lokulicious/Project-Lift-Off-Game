@@ -9,6 +9,7 @@ public class MyGame : Game
 	{
 		level = new Level();
 		AddChild(level);
+		
     }
 
     void Update()

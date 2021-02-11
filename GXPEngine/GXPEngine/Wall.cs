@@ -83,8 +83,6 @@ public class Wall : Sprite
         if (Input.GetKeyDown(Key.SPACE) && player.isJumping == false)
         {
             speedY = jumpForce; //give jump speed
-            Console.WriteLine("jump start");
-            Console.WriteLine(speedY);
         }
 
 

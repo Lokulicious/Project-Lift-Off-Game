@@ -17,6 +17,7 @@ namespace GXPEngine
         float jumpforce = 15f;
         int heightClimbed = 0;
         int startFlipTime;
+        bool hasShield = false;
         public Player() : base("flip.png",6,1)
         {
             SetOrigin(width / 2, height / 2);
@@ -32,7 +33,9 @@ namespace GXPEngine
             collisions = GetCollisions();
             Jump();
             AnimateFlipAndWallHang();
+            checkShield();
             Animate();
+            
         }
 
 
@@ -105,13 +108,37 @@ namespace GXPEngine
         { 
                 foreach (GameObject i in collisions)
                 {
-                    if (i is DroppedThing)
+                    if (i is DroppedThing && !hasShield)
                     {
                         return true;
                     }
+                    else if(i is DroppedThing && hasShield)
+                    {
+                    i.Destroy();
+                    hasShield = false;
+                }
                 }
             
             return false;
+        }
+        public void checkShield()
+        {
+            foreach (GameObject i in collisions)
+            {
+                if (i is Shield)
+                {
+                    i.LateDestroy();
+                    hasShield = true;
+                }
+            }
+        }
+        public bool HasShield()
+        {
+            return hasShield;
+        }
+        public int getClimbedHeight()
+        {
+            return heightClimbed;
         }
         
         

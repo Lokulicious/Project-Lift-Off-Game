@@ -6,14 +6,15 @@ using GXPEngine;
 
 namespace GXPEngine
 {
-    class Pickup : AnimationSprite
+    class Pickup : Sprite
     {
-        public Pickup (string filename,int cols, int rows) : base(filename,cols,rows) { 
+        public Pickup (string filename) : base(filename) { 
 
         }
 
         public void Update()
         {
+            y += 2;
             
         }
         void OnCollision(GameObject other)

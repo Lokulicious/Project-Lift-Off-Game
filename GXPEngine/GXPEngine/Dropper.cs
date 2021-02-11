@@ -8,60 +8,79 @@ namespace GXPEngine
 {
     class Dropper : GameObject
     {
-        private float timeOfLastDrop = 0;
-
+        private float timeOfLastDrop;
         private Player _player;
-
         float frequency;
-        bool toDrop = false;
         int endAfter;
         int drops;
-        public Dropper( float frequency, int endAfter, Player player, int NoOfSmall, int NoOfBig) 
+        bool safety = false;
+        bool bigRocks;
+        public Dropper( float frequency, int endAfter, Player player, bool bigRocks) 
         {
             this.frequency = frequency;
             this.endAfter = endAfter;
-
+            this.bigRocks = bigRocks;
+            timeOfLastDrop = Time.now;
             _player = player;
         }
         public void Update()
         {
+            
             if (!Done())
             {
-                if (Time.now % frequency == 0)
-                {
-                    AddChild(new DroppedThing(5, GetFallLane(),_player,"big_rock.png"));
-                    drops++;
-                }
+                dropRocks();
+                checkSafety();
             }
            
+        }
+        public void dropRocks()
+        {
+            if (TimeToDrop() && !safety)
+            {
+                if (bigRocks)
+                    AddChild(new DroppedThing(5, GetFallLane(), _player, "big_rock.png"));
+                else
+                    AddChild(new DroppedThing(5, GetFallLane(), _player, "rockie.png"));
+
+                drops++;
+            }
+        }
+        public void checkSafety() //checks if last drop was less than a tenth of a second ago to avoid double dropping
+        {
+            if (Time.now - timeOfLastDrop < 100)
+            {
+                safety = true;
+            }
+            else
+            {
+                safety = false;
+            }
         }
 
         public bool TimeToDrop()
         {
             if (Time.now - timeOfLastDrop == frequency) 
             {
-                toDrop = true;
                 timeOfLastDrop = Time.now;
-                return toDrop;
+                return true;
             }
             else
             {
-                toDrop = false;
-                return toDrop;
+                return false;
             } 
         }
         public int GetFallLane()
         {
             Random rando = new Random();
-            int selection = rando.Next(1, 6);
+            int selection = rando.Next(1, 5);
 
             switch(selection) {
 
-                case 1: return 600;
-                case 2: return 750;
+                case 1: return 700;
+                case 2: return 800;
                 case 3: return 900;
-                case 4: return 1050;
-                case 5: return 1200;
+                case 4: return 1000;
+                
             }
             return 0;
         }
