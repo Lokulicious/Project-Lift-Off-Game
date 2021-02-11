@@ -15,7 +15,7 @@ public class Wall : Sprite
     public Wall(Player player) : base("GrassWallRightSmall.png")
     {
         SetOrigin(width / 2, 0);
-        jumpForce = 20f;
+        jumpForce = 23f;
         gravity = 1f;
 
         this.player = player;
@@ -80,7 +80,7 @@ public class Wall : Sprite
 
     void WallJumpMovement()
     {
-        if (Input.GetKeyDown(Key.SPACE))
+        if (Input.GetKeyDown(Key.SPACE) && player.isJumping == false)
         {
             speedY = jumpForce; //give jump speed
             Console.WriteLine("jump start");
