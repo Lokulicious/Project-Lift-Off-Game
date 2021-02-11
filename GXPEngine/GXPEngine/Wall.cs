@@ -56,6 +56,7 @@ public class Wall : Sprite
         if (this.y > 1550)
         {
             this.y = y - (height * 17);
+            player.gainHeight();
         }
         if (this.y < -626)
         {
@@ -69,6 +70,7 @@ public class Wall : Sprite
     {
         if (other is Player)
         {
+            //Console.WriteLine("wall collison");
             Player player = other as Player;
             player.isTouchingWall = true;
             player.isJumping = false;

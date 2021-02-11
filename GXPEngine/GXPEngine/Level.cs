@@ -13,8 +13,8 @@ namespace GXPEngine
         float wallLength;
         float wallStartPositionY = 100;
         float wallPositionX = 500;  //452
-
-
+        bool firstDropperMade = false;
+        bool secondDropperMade = false;
 
         public Level()
         {
@@ -46,6 +46,7 @@ namespace GXPEngine
 
 
             AddChild(player);
+            
 
         }
 
@@ -54,7 +55,17 @@ namespace GXPEngine
         
         void Update()
         {
-            
+           if(player.getHeightClimbed() >=10 && !firstDropperMade)
+            {
+                AddChild(new Dropper(2500,3));
+                firstDropperMade = true;
+            }
+            if (player.getHeightClimbed() >= 60 && !secondDropperMade)
+            {
+                AddChild(new Dropper(1000, 6));
+                secondDropperMade = true;
+            }
+
         }
 
 

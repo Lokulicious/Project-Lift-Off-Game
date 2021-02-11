@@ -4,3 +4,9 @@ D:\School\Year 1\Term 3\Project Lift-Off\Game\Project Lift-Off\GXPEngine\GXPEngi
 D:\School\Year 1\Term 3\Project Lift-Off\Game\Project Lift-Off\GXPEngine\GXPEngine\bin\Debug\GXPEngine.pdb
 D:\School\Year 1\Term 3\Project Lift-Off\Game\Project Lift-Off\GXPEngine\GXPEngine\obj\x86\Debug\GXPEngine.exe
 D:\School\Year 1\Term 3\Project Lift-Off\Game\Project Lift-Off\GXPEngine\GXPEngine\obj\x86\Debug\GXPEngine.pdb
+C:\CMGTprojects\Project-Lift-Off-Game\GXPEngine\GXPEngine\bin\Debug\GXPEngine.exe
+C:\CMGTprojects\Project-Lift-Off-Game\GXPEngine\GXPEngine\bin\Debug\GXPEngine.pdb
+C:\CMGTprojects\Project-Lift-Off-Game\GXPEngine\GXPEngine\obj\x86\Debug\GXPEngine.csprojAssemblyReference.cache
+C:\CMGTprojects\Project-Lift-Off-Game\GXPEngine\GXPEngine\obj\x86\Debug\GXPEngine.csproj.CoreCompileInputs.cache
+C:\CMGTprojects\Project-Lift-Off-Game\GXPEngine\GXPEngine\obj\x86\Debug\GXPEngine.exe
+C:\CMGTprojects\Project-Lift-Off-Game\GXPEngine\GXPEngine\obj\x86\Debug\GXPEngine.pdb

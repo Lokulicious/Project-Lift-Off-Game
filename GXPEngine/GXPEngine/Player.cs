@@ -13,7 +13,7 @@ namespace GXPEngine
 
         bool rightSide = false;
         float jumpforce = 15f;
-
+        int heightClimbed = 0;
         public Player() : base("player_big.png")
         {
             SetOrigin(width / 2, height / 2);
@@ -59,6 +59,15 @@ namespace GXPEngine
             }
 
         }
+        public void gainHeight()
+        {
+            heightClimbed++;
+        }
+        public int getHeightClimbed()
+        {
+            return heightClimbed;
+        }
+       
 
     }
 }
