@@ -35,6 +35,8 @@ public class Wall : Sprite
 
 
 
+
+
     void Sliding()
     {
         if (player.isTouchingWall == true)
