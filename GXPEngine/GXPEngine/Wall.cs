@@ -15,7 +15,7 @@ public class Wall : Sprite
     public Wall(Player player) : base("GrassWallRightSmall.png")
     {
         SetOrigin(width / 2, 0);
-        jumpForce = 23f;
+        jumpForce = 30f;
         gravity = 1f;
 
         this.player = player;
@@ -93,7 +93,7 @@ public class Wall : Sprite
         if (player.isJumping)
         {
             speedY -= gravity; //apply gravity
-            y += speedY * Time.deltaTime; //apply movement
+            y += speedY; //apply movement
         }
 
     }

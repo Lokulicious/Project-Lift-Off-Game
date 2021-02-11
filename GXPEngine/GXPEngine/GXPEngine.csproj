@@ -36,6 +36,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Background.cs" />
     <Compile Include="DroppedThing.cs" />
     <Compile Include="Dropper.cs" />
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />

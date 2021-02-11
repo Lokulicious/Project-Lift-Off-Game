@@ -9,10 +9,11 @@ namespace GXPEngine
 
 
         Player player = new Player();
+        Background background = new Background();
 
         float wallLength;
         float wallStartPositionY = 100;
-        float wallPositionX = 500;  //452
+        float wallPositionX = 600;  //452
         bool firstDropperMade = false;
         bool secondDropperMade = false;
 
@@ -22,11 +23,11 @@ namespace GXPEngine
             wallLength = game.height + 50;
 
             wallPositionX = 452;
-            Console.WriteLine(wallPositionX);
         }
 
         void GenerateLevel()
         {
+            AddChild(background);
             for (y = 0; y < 18; y++)
             {
                 Wall wallLeft = new Wall(player);
@@ -46,7 +47,8 @@ namespace GXPEngine
 
 
             AddChild(player);
-            
+
+
 
         }
 
