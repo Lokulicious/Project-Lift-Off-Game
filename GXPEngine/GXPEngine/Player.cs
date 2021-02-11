@@ -1,8 +1,10 @@
 ﻿using GXPEngine;
 using GXPEngine.Core;
 using System.Collections;
-using System;
 using System.Collections.Generic;
+using System;
+
+
 
 namespace GXPEngine
 {
@@ -14,30 +16,42 @@ namespace GXPEngine
         bool startFlip = false;
         GameObject[] collisions;
 
-        bool rightSide = false;
+        public bool rightSide = false;
         float jumpforce = 15f;
         int heightClimbed = 0;
         int startFlipTime;
 
-        float mouseX = Input.mouseX;
-        float mouseY = Input.mouseY;
+        float mouseX;
+        float mouseY;
 
-        Vector2 mousePos;
-        Vector2 playerPos;
+        float doubleX;
+        float doubleY;
+
+        
+        double tan;
+        double jumpRads;
+        double jumpAngle;
+        float angle;
+
+        double jumpSpeedX;
+        double jumpSpeedY;
+        float gravity;
+        float jumpForceMultiplier;
+
 
         public float passiveMoveSpeed;
 
 
         public Player() : base("flip.png",6,1)
         {
-            passiveMoveSpeed = 3;
+            passiveMoveSpeed = 0;
             SetOrigin(width / 2, height / 2);
-            this.x = 690;
-            this.y = game.height / 2;
+            this.x = game.width - 690;
+            this.y = game.height - 150;
             SetCycle(0, 1);
 
-            mousePos = TransformPoint(Input.mouseX, Input.mouseY);
-            playerPos = TransformPoint(this.x, this.y);
+            gravity = 1;
+            jumpForceMultiplier = 0.7f;
 
         }
 
@@ -46,6 +60,7 @@ namespace GXPEngine
         void Update()
         {
             collisions = GetCollisions();
+            getJumpDirection();
             Jump();
             moveDown();
         }
@@ -61,41 +76,62 @@ namespace GXPEngine
 
          void getJumpDirection()
         {
-       //     Vector2 lookDir = ((Vector2)mousePos) - playerPos;
-       
+            mouseX = Input.mouseX;
+            mouseY = Input.mouseY;
+
+            doubleX = this.x - mouseX;
+            doubleY = this.y - mouseY;
+
+            tan = doubleX / doubleY;
+
+            jumpRads = Math.Atan(tan);
+            jumpAngle = (jumpRads * (180/Math.PI)) * -1;
+
+
+            Console.WriteLine(jumpAngle);
+
         }
 
 
         void Jump()
         {
-/*            if (Input.GetKeyDown(Key.SPACE) && isJumping == false)
+            if (Input.GetMouseButtonDown(0) && isJumping == false)
             {
-                isJumping = true;
-                if (x < (game.width / 2))
+                if (!rightSide)
                 {
-                    rightSide = false;
+                    jumpSpeedX = jumpAngle * jumpForceMultiplier;
+                    jumpSpeedY = (90 - jumpAngle) * 0.6;
+                    isJumping = true;
                 }
-                else if (x > (game.width / 2))
+                else
                 {
-                    rightSide = true;
+                    jumpSpeedX = jumpAngle * jumpForceMultiplier;
+                    jumpSpeedY = (90 + jumpAngle) * 0.6;
+                    isJumping = true;
                 }
-            }
 
+            }
             if (isJumping)
             {
-                if (rightSide == false)
-                {
-                    MoveUntilCollision(jumpforce, 0);
-                    x = x + 10;
-                }
-                else if (rightSide == true)
-                {
-                    MoveUntilCollision(-jumpforce, 0);
-                    x = x - 10;
-                }
-            }*/
+                jumpSpeedY -= gravity;
+            }
+            if (isJumping == false)
+            {
+                jumpSpeedX = 0f;
+                jumpSpeedY = 0f;
+            }
 
-        }
+            x += (float)jumpSpeedX;
+            y -= (float)jumpSpeedY;
+            
+
+
+
+        } 
+
+
+
+
     /*public void AnimateFlipAndWallHang()
     {
         if (Input.GetKey(Key.SPACE))

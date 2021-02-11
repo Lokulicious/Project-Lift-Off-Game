@@ -10,3 +10,7 @@ C:\CMGTprojects\Project-Lift-Off-Game\GXPEngine\GXPEngine\obj\x86\Debug\GXPEngin
 C:\CMGTprojects\Project-Lift-Off-Game\GXPEngine\GXPEngine\obj\x86\Debug\GXPEngine.csproj.CoreCompileInputs.cache
 C:\CMGTprojects\Project-Lift-Off-Game\GXPEngine\GXPEngine\obj\x86\Debug\GXPEngine.exe
 C:\CMGTprojects\Project-Lift-Off-Game\GXPEngine\GXPEngine\obj\x86\Debug\GXPEngine.pdb
+D:\School\Year 1\Term 3\Project Lift-Off\Game\Project Lift-Off\GXPEngine\GXPEngine\bin\Debug\GXPEngine.exe.config
+D:\School\Year 1\Term 3\Project Lift-Off\Game\Project Lift-Off\GXPEngine\GXPEngine\bin\Debug\System.Numerics.Vectors.dll
+D:\School\Year 1\Term 3\Project Lift-Off\Game\Project Lift-Off\GXPEngine\GXPEngine\bin\Debug\System.Numerics.Vectors.xml
+D:\School\Year 1\Term 3\Project Lift-Off\Game\Project Lift-Off\GXPEngine\GXPEngine\obj\x86\Debug\GXPEngine.csproj.CopyComplete

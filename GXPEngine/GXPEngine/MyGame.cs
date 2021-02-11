@@ -8,6 +8,9 @@ public class MyGame : Game
 	{
 		Level level = new Level();
 		AddChild(level);
+
+		Cursor cursor = new Cursor();
+		AddChild(cursor);
     }
 
     void Update()

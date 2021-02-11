@@ -14,7 +14,7 @@ public class Wall : Sprite
     {
         SetOrigin(width / 2, 0);
         moveSpeed = 3;
-
+ 
         this.player = player;
     }
 
@@ -74,6 +74,14 @@ public class Wall : Sprite
             Player player = other as Player;
             player.isTouchingWall = true;
             player.isJumping = false;
+            if (player.x > game.width / 2)
+            {
+                player.rightSide = true;
+            }
+            else if (player.x < game.width/2)
+            {
+                player.rightSide = false;
+            }
         }
     }
 
