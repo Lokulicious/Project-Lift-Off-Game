@@ -15,7 +15,8 @@ public class Wall : Sprite
     public Wall(Player player) : base("GrassWallRightSmall.png")
     {
         SetOrigin(width / 2, 0);
-        jumpForce = 0f;
+        jumpForce = 20f;
+        gravity = 1f;
 
         this.player = player;
     }
@@ -56,13 +57,18 @@ public class Wall : Sprite
         {
             this.y = y - (height * 17);
         }
+        if (this.y < -626)
+        {
+            this.y = y + (height * 17);
+        }
+
+
     }
 
     void OnCollision(GameObject other)
     {
         if (other is Player)
         {
-            Console.WriteLine("wall collison");
             Player player = other as Player;
             player.isTouchingWall = true;
             player.isJumping = false;
@@ -74,19 +80,18 @@ public class Wall : Sprite
     {
         if (Input.GetKeyDown(Key.SPACE))
         {
-            jumpForce = 5f;
-            gravity = -1f;
-
-            speedY = jumpForce + gravity;
+            speedY = jumpForce; //give jump speed
+            Console.WriteLine("jump start");
+            Console.WriteLine(speedY);
         }
-        if (Input.GetKeyUp(Key.SPACE))
+
+
+        if (player.isJumping)
         {
-            speedY = 0;
+            speedY -= gravity; //apply gravity
+            y += speedY; //apply movement
         }
 
-        y = y + speedY;
-
-        
     }
 
 
