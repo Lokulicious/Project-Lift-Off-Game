@@ -16,7 +16,7 @@ namespace GXPEngine
         bool toDrop = false;
         int endAfter;
         int drops;
-        public Dropper( float frequency, int endAfter, Player player) 
+        public Dropper( float frequency, int endAfter, Player player, int NoOfSmall, int NoOfBig) 
         {
             this.frequency = frequency;
             this.endAfter = endAfter;
@@ -29,7 +29,7 @@ namespace GXPEngine
             {
                 if (Time.now % frequency == 0)
                 {
-                    AddChild(new DroppedThing(5, GetFallLane(),_player));
+                    AddChild(new DroppedThing(5, GetFallLane(),_player,"big_rock.png"));
                     drops++;
                 }
             }

@@ -16,7 +16,7 @@ namespace GXPEngine
         float gravity;
         float jumpForce;
 
-        public DroppedThing(float fallspeed, int xPos, Player player) : base("circle.png")
+        public DroppedThing(float fallspeed, int xPos, Player player, string filename) : base(filename)
         {
             this.fallspeed = fallspeed;
             x = xPos;
