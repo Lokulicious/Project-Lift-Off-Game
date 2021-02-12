@@ -111,7 +111,31 @@ namespace GXPEngine
         {
             if (Input.GetMouseButtonDown(0) && isJumping == false)
             {
-                if (jumpAngle > 0)
+                if (jumpAngle > 0 && !rightSide)
+                {
+                    jumpSpeedY = (90 - jumpAngle) * jumpForceMultiplier;
+                    jumpSpeedX = jumpAngle * jumpForceMultiplier;
+                }
+                else if (jumpAngle < 0 && !rightSide)
+                {
+                    jumpSpeedY = (-90 - jumpAngle) * jumpForceMultiplier;
+                    jumpSpeedX = -jumpAngle * jumpForceMultiplier;
+                }
+                else if (jumpAngle < 0 && rightSide)
+                {
+                    jumpSpeedY = (90 + jumpAngle) * jumpForceMultiplier;
+                    jumpSpeedX = jumpAngle * jumpForceMultiplier;
+                }
+                else if (jumpAngle > 0 && rightSide)
+                {
+                    jumpSpeedX = -jumpAngle * jumpForceMultiplier;
+                    jumpSpeedY = (-90 + jumpAngle) * jumpForceMultiplier;
+                }
+
+
+
+
+               /* if (jumpAngle > 0)
                 {
                     if (!rightSide)
                     {
@@ -121,8 +145,9 @@ namespace GXPEngine
                     {
                         jumpSpeedY = (90 + jumpAngle) * jumpForceMultiplier;
                     }
-
-                } else
+                    jumpSpeedX = jumpAngle * jumpForceMultiplier;
+                }
+                else
                 {
                     if (!rightSide)
                     {
@@ -132,8 +157,9 @@ namespace GXPEngine
                     {
                         jumpSpeedY = (90 + jumpAngle) * jumpForceMultiplier;
                     }
-                }
-                jumpSpeedX = jumpAngle * jumpForceMultiplier;
+                    jumpSpeedX = -jumpAngle * jumpForceMultiplier;
+                }*/
+                /*                jumpSpeedX = jumpAngle * jumpForceMultiplier;*/
 
                 isJumping = true;
                 
