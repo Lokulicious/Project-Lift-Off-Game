@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Arrow.cs" />
     <Compile Include="Background.cs" />
     <Compile Include="Cursor.cs" />
     <Compile Include="DroppedThing.cs" />

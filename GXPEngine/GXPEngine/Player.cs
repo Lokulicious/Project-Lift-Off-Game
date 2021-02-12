@@ -31,8 +31,8 @@ namespace GXPEngine
         
         double tan;
         double jumpRads;
-        double jumpAngle;
-        float angle;
+        public double jumpAngle;
+        public float angle;
 
         double jumpSpeedX;
         double jumpSpeedY;
@@ -48,7 +48,7 @@ namespace GXPEngine
         {
             passiveMoveSpeed = 3;
             SetOrigin(width / 2, height / 2);
-            this.x = game.width - 690;
+            this.x = 690;
             this.y = game.height - 550;
             SetCycle(0, 1);
 
@@ -100,7 +100,7 @@ namespace GXPEngine
 
             jumpRads = Math.Atan(tan);
             jumpAngle = (jumpRads * (180/Math.PI)) * -1;
-
+            angle = (float)jumpAngle;
 
             Console.WriteLine(jumpAngle);
 

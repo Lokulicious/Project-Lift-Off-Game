@@ -12,6 +12,7 @@ namespace GXPEngine
         Background background = new Background();
         HUD shieldhud = new HUD("No shield", 450, 25);
         HUD scorehud = new HUD("Score: 0", 1750, 25);
+        Arrow arrow;
 
         float wallLength;
         float wallStartPositionY = 100;
@@ -24,6 +25,8 @@ namespace GXPEngine
         bool lost = false;
         int dropperTimer;
         bool dropperTimed = false;
+
+        float arrowRotation;
         
         public Level()
         {
@@ -83,8 +86,8 @@ namespace GXPEngine
             AddChild(shieldhud);
             AddChild(scorehud);
 
-
-
+            arrow = new Arrow(player, player.x, player.y);
+            AddChild(arrow);
         }
 
 
@@ -128,8 +131,9 @@ namespace GXPEngine
                     fourthDropperMade = true;
                 }
             }
-
+            Arrow(player);
         }
+
         public void DisplayHudItems()
         {
             if (player.HasShield())
@@ -155,6 +159,45 @@ namespace GXPEngine
         public bool Lost()
         {
             return lost;
+        }
+
+        void Arrow(Player player)
+        {
+            if (!player.isJumping)
+            {
+                arrow.alpha = 0.8f;
+            } else
+            {
+                arrow.alpha = 0;
+            }
+
+            arrow.x = player.x;
+            arrow.y = player.y;
+
+
+            if (!player.rightSide)
+            {
+                if (player.angle > 0 && player.angle <= 90)
+                {
+                    arrowRotation = player.angle;
+                }
+                else if (player.angle < 0)
+                {
+                    arrowRotation = player.angle + 180;
+                }
+            } else
+            {
+                if (player.angle > 0 && player.angle <= 90)
+                {
+                    arrowRotation = player.angle + 180;
+                }
+                else if (player.angle < 0)
+                {
+                    arrowRotation = player.angle;
+                }
+            }
+            Console.WriteLine(arrowRotation);
+            arrow.rotation = arrowRotation;
         }
 
 
