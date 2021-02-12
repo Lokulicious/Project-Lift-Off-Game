@@ -38,19 +38,22 @@ namespace GXPEngine
         float gravity;
         float jumpForceMultiplier;
 
-
+        float playerMoveSpeed;
+        float slideSpeed;
         public float passiveMoveSpeed;
 
 
         public Player() : base("flip.png",6,1)
         {
-            passiveMoveSpeed = 0;
+            passiveMoveSpeed = 3;
             SetOrigin(width / 2, height / 2);
             this.x = game.width - 690;
             this.y = game.height - 150;
             SetCycle(0, 1);
 
-            gravity = 1;
+            slideSpeed = 1;
+
+            gravity = 1f;
             jumpForceMultiplier = 0.7f;
 
         }
@@ -69,7 +72,14 @@ namespace GXPEngine
 
         void moveDown()
         {
-            y += passiveMoveSpeed;
+            playerMoveSpeed = passiveMoveSpeed;
+
+            if (isTouchingWall)
+            {
+                playerMoveSpeed = passiveMoveSpeed + slideSpeed;
+            }
+
+            y += playerMoveSpeed;
         }
 
 
@@ -100,13 +110,13 @@ namespace GXPEngine
                 if (!rightSide)
                 {
                     jumpSpeedX = jumpAngle * jumpForceMultiplier;
-                    jumpSpeedY = (90 - jumpAngle) * 0.6;
+                    jumpSpeedY = (90 - jumpAngle) * jumpForceMultiplier;
                     isJumping = true;
                 }
                 else
                 {
                     jumpSpeedX = jumpAngle * jumpForceMultiplier;
-                    jumpSpeedY = (90 + jumpAngle) * 0.6;
+                    jumpSpeedY = (90 + jumpAngle) * jumpForceMultiplier;
                     isJumping = true;
                 }
 
@@ -128,6 +138,7 @@ namespace GXPEngine
 
 
         } 
+
 
 
 
