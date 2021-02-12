@@ -4,18 +4,28 @@ using GXPEngine;
 
 public class MyGame : Game
 {
+	Level level;
+	Cursor cursor;
 	public MyGame() : base(1920, 1080, true)
 	{
-		Level level = new Level();
+		level = new Level();
 		AddChild(level);
 
-		Cursor cursor = new Cursor();
+		cursor = new Cursor();
 		AddChild(cursor);
     }
 
     void Update()
 	{
-		
+		if (level.Lost())
+		{
+			level.Destroy();
+			cursor.Destroy();
+			level = new Level();
+			AddChild(level);
+			cursor = new Cursor();
+			AddChild(cursor);
+		}
 	}
 
 	static void Main()

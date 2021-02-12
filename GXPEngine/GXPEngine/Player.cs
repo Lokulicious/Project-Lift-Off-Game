@@ -14,11 +14,12 @@ namespace GXPEngine
         public bool isTouchingWall = false;
         public bool isJumping = false;
         bool startFlip = false;
-        GameObject[] collisions;
+        GameObject[] collisions = new GameObject[0];
 
         public bool rightSide = false;
+        bool hasShield = false;
         float jumpforce = 15f;
-        int heightClimbed = 0;
+        int heightClimbed = -1;
         int startFlipTime;
 
         float mouseX;
@@ -43,12 +44,12 @@ namespace GXPEngine
         public float passiveMoveSpeed;
 
 
-        public Player() : base("flip.png",6,1)
+        public Player() : base("new_flip.png",21,1)
         {
             passiveMoveSpeed = 3;
             SetOrigin(width / 2, height / 2);
             this.x = game.width - 690;
-            this.y = game.height - 150;
+            this.y = game.height - 550;
             SetCycle(0, 1);
 
             slideSpeed = 1;
@@ -66,6 +67,9 @@ namespace GXPEngine
             getJumpDirection();
             Jump();
             moveDown();
+            checkShield();
+            AnimateFlipAndWallHang();
+            Animate();
         }
 
 
@@ -143,9 +147,9 @@ namespace GXPEngine
 
 
 
-    /*public void AnimateFlipAndWallHang()
+    public void AnimateFlipAndWallHang()
     {
-        if (Input.GetKey(Key.SPACE))
+        if (Input.GetMouseButtonDown(0))
         {
             startFlip = true;
             startFlipTime = Time.now;
@@ -154,7 +158,7 @@ namespace GXPEngine
         {
             if (startFlip)
             {
-                SetCycle(1, 4,20);
+                SetCycle(4, 14,2);
                 if (Time.now - startFlipTime > 100)
                 {
                     startFlip = false;
@@ -162,14 +166,14 @@ namespace GXPEngine
             }
             else if (i is Wall && rightSide)
             {
-                SetCycle(5, 1);
+                SetCycle(20, 1);
             }
             else if (i is Wall && !rightSide)
             {
                 SetCycle(0, 1);
             }
         }
-    }*/
+    }
     public void gainHeight()
     {
         heightClimbed++;
@@ -178,7 +182,47 @@ namespace GXPEngine
     {
         return heightClimbed;
     }
+        public bool hitRock()
+        {
+            foreach (GameObject i in collisions)
+            {
+                if (i is DroppedThing && !hasShield)
+                {
+                    return true;
+                }
+                else if (i is DroppedThing && hasShield)
+                {
+                    i.Destroy();
+                    hasShield = false;
+                }
+            }
+
+            return false;
+        }
+        public bool onMap()
+        {
+            if(y > game.height + height / 2)
+            {
+                return false;
+            }
+            return true;
+        }
+        public void checkShield()
+        {
+            foreach (GameObject i in collisions)
+            {
+                if (i is Shield)
+                {
+                    i.LateDestroy();
+                    hasShield = true;
+                }
+            }
+        }
+        public bool HasShield()
+        {
+            return hasShield;
+        }
 
 
-}
+    }
 }

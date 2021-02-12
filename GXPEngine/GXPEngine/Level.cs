@@ -10,18 +10,25 @@ namespace GXPEngine
 
         Player player = new Player();
         Background background = new Background();
+        HUD shieldhud = new HUD("No shield", 450, 25);
+        HUD scorehud = new HUD("Score: 0", 1750, 25);
 
         float wallLength;
         float wallStartPositionY = 100;
         float wallPositionX = 600;
         bool firstDropperMade = false;
         bool secondDropperMade = false;
-
+        bool thirdDropperMade = false;
+        bool fourthDropperMade = false;
+        bool shieldMade = false;
+        bool lost = false;
+        int dropperTimer;
+        bool dropperTimed = false;
+        
         public Level()
         {
             GenerateLevel();
             wallLength = game.height + 50;
-
             wallPositionX = 452;
         }
 
@@ -73,6 +80,8 @@ namespace GXPEngine
 
 
             AddChild(player);
+            AddChild(shieldhud);
+            AddChild(scorehud);
 
 
 
@@ -83,17 +92,69 @@ namespace GXPEngine
         
         void Update()
         {
-           if(player.getHeightClimbed() >=10 && !firstDropperMade)
+            checkIfLost();
+            DisplayHudItems();
+            if (player.getHeightClimbed() >= 100 && !shieldMade)
             {
-                AddChild(new Dropper(2500,3,player));
+                AddChild(new Shield(game.width / 2));
+                shieldMade = true;
+            }
+            if (player.getHeightClimbed() >= 15 && !firstDropperMade)
+            {
+                AddChild(new Dropper(2500, 4, player, false));
                 firstDropperMade = true;
             }
-            if (player.getHeightClimbed() >= 60 && !secondDropperMade)
+            if (player.getHeightClimbed() >= 75 && !secondDropperMade)
             {
-                AddChild(new Dropper(1000, 6,player));
+                AddChild(new Dropper(2000, 2, player, true));
                 secondDropperMade = true;
             }
+            if (player.getHeightClimbed() >= 125)
+            {
+                if (!dropperTimed)
+                {
+                    dropperTimer = Time.now;
+                    dropperTimed = true;
+                }
 
+                if (!thirdDropperMade)
+                {
+                    AddChild(new Dropper(4000, 10, player, false));
+                    thirdDropperMade = true;
+                }
+                if (!fourthDropperMade && Time.now - dropperTimer >= 2000)
+                {
+                    AddChild(new Dropper(4000, 10, player, true));
+                    fourthDropperMade = true;
+                }
+            }
+
+        }
+        public void DisplayHudItems()
+        {
+            if (player.HasShield())
+            {
+                shieldhud.updateMessage("SHIELD");
+            }
+            else
+                shieldhud.updateMessage("No shield");
+
+            scorehud.updateMessage("Score: " + (player.getHeightClimbed()/10)*10 );
+        }
+        public void checkIfLost()
+        {
+            if (player.hitRock())
+            {
+                lost = true;
+            }
+            if (!player.onMap())
+            {
+                lost = true;
+            }
+        }
+        public bool Lost()
+        {
+            return lost;
         }
 
 

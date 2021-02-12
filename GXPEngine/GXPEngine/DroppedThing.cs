@@ -16,7 +16,7 @@ namespace GXPEngine
         float gravity;
         float jumpForce;
 
-        public DroppedThing(float fallspeed, int xPos, Player player) : base("circle.png")
+        public DroppedThing(float fallspeed, int xPos, Player player, string filename) : base(filename)
         {
             this.fallspeed = fallspeed;
             x = xPos;
@@ -39,23 +39,23 @@ namespace GXPEngine
 
 
 
-/*        void DropJumpMovement()
-        {
-            if (Input.GetKeyDown(Key.SPACE) && player.isJumping == false)
-            {
-                speedY = jumpForce; //give jump speed
-                Console.WriteLine("jump start");
-                Console.WriteLine(speedY);
-            }
+        /*        void DropJumpMovement()
+                {
+                    if (Input.GetKeyDown(Key.SPACE) && player.isJumping == false)
+                    {
+                        speedY = jumpForce; //give jump speed
+                        Console.WriteLine("jump start");
+                        Console.WriteLine(speedY);
+                    }
 
 
-            if (player.isJumping)
-            {
-                speedY -= gravity; //apply gravity
-                y += speedY; //apply movement
-            }
+                    if (player.isJumping)
+                    {
+                        speedY -= gravity; //apply gravity
+                        y += speedY; //apply movement
+                    }
 
-        }*/
+                }*/
 
     }
 }

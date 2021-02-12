@@ -14,3 +14,7 @@ D:\School\Year 1\Term 3\Project Lift-Off\Game\Project Lift-Off\GXPEngine\GXPEngi
 D:\School\Year 1\Term 3\Project Lift-Off\Game\Project Lift-Off\GXPEngine\GXPEngine\bin\Debug\System.Numerics.Vectors.dll
 D:\School\Year 1\Term 3\Project Lift-Off\Game\Project Lift-Off\GXPEngine\GXPEngine\bin\Debug\System.Numerics.Vectors.xml
 D:\School\Year 1\Term 3\Project Lift-Off\Game\Project Lift-Off\GXPEngine\GXPEngine\obj\x86\Debug\GXPEngine.csproj.CopyComplete
+C:\CMGTprojects\Project-Lift-Off-Game\GXPEngine\GXPEngine\bin\Debug\GXPEngine.exe.config
+C:\CMGTprojects\Project-Lift-Off-Game\GXPEngine\GXPEngine\bin\Debug\System.Numerics.Vectors.dll
+C:\CMGTprojects\Project-Lift-Off-Game\GXPEngine\GXPEngine\bin\Debug\System.Numerics.Vectors.xml
+C:\CMGTprojects\Project-Lift-Off-Game\GXPEngine\GXPEngine\obj\x86\Debug\GXPEngine.csproj.CopyComplete
