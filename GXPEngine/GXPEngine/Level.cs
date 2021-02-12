@@ -137,7 +137,7 @@ namespace GXPEngine
 
         public void DisplayHudItems()
         {
-            if (player.HasShield())
+            if (player.HasShield()
             {
                 shieldhud.updateMessage("SHIELD");
             }
