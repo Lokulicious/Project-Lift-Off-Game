@@ -111,18 +111,19 @@ namespace GXPEngine
         {
             if (Input.GetMouseButtonDown(0) && isJumping == false)
             {
+
+                    jumpSpeedX = jumpAngle * jumpForceMultiplier;
                 if (!rightSide)
                 {
-                    jumpSpeedX = jumpAngle * jumpForceMultiplier;
                     jumpSpeedY = (90 - jumpAngle) * jumpForceMultiplier;
-                    isJumping = true;
                 }
                 else
                 {
-                    jumpSpeedX = jumpAngle * jumpForceMultiplier;
                     jumpSpeedY = (90 + jumpAngle) * jumpForceMultiplier;
-                    isJumping = true;
                 }
+                isJumping = true;
+                
+
 
             }
             if (isJumping)
