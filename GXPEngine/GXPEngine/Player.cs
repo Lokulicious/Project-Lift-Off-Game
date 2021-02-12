@@ -102,7 +102,7 @@ namespace GXPEngine
             jumpAngle = (jumpRads * (180/Math.PI)) * -1;
             angle = (float)jumpAngle;
 
-            Console.WriteLine(jumpAngle);
+           
 
         }
 

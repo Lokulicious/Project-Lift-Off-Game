@@ -12,7 +12,7 @@ namespace GXPEngine
         private Player _player;
         float frequency;
         int endAfter;
-        int drops;
+        int drops = 0;
         bool safety = false;
         bool bigRocks;
         public Dropper(float frequency, int endAfter, Player player, bool bigRocks)
@@ -22,6 +22,7 @@ namespace GXPEngine
             this.bigRocks = bigRocks;
             timeOfLastDrop = Time.now;
             _player = player;
+            Console.WriteLine("---------------------------------------------------------------------------------------");
         }
         public void Update()
         {
@@ -35,6 +36,7 @@ namespace GXPEngine
         }
         public void dropRocks()
         {
+            Console.WriteLine(drops);
             if (TimeToDrop() && !safety)
             {
                 if (bigRocks)
@@ -59,7 +61,7 @@ namespace GXPEngine
 
         public bool TimeToDrop()
         {
-            if (Time.now - timeOfLastDrop == frequency)
+            if (Time.now - timeOfLastDrop >= frequency - 100 && Time.now - timeOfLastDrop <= frequency + 100)
             {
                 timeOfLastDrop = Time.now;
                 return true;

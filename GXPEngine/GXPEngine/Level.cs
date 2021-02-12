@@ -197,7 +197,7 @@ namespace GXPEngine
                     arrowRotation = player.angle;
                 }
             }
-            Console.WriteLine(arrowRotation);
+            
             arrow.rotation = arrowRotation;
         }
 
