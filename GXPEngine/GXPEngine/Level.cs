@@ -97,22 +97,22 @@ namespace GXPEngine
         {
             checkIfLost();
             DisplayHudItems();
-            if (player.getHeightClimbed() >= 80 && !shieldMade)
+            if (player.getHeightClimbed() >= 100 && !shieldMade)
             {
                 AddChild(new Shield(game.width / 2));
                 shieldMade = true;
             }
-            if (player.getHeightClimbed() >= 10 && !firstDropperMade)
+            if (player.getHeightClimbed() >= 15 && !firstDropperMade)
             {
                 AddChild(new Dropper(2500, 4, player, false));
                 firstDropperMade = true;
             }
-            if (player.getHeightClimbed() >= 45 && !secondDropperMade)
+            if (player.getHeightClimbed() >= 30 && !secondDropperMade)
             {
-                AddChild(new Dropper(2000, 4, player, true));
+                AddChild(new Dropper(2000, 2, player, true));
                 secondDropperMade = true;
             }
-            if (player.getHeightClimbed() >= 85)
+            if (player.getHeightClimbed() >= 75)
             {
                 if (!dropperTimed)
                 {
@@ -122,22 +122,21 @@ namespace GXPEngine
 
                 if (!thirdDropperMade)
                 {
-                    AddChild(new Dropper(4000, 100, player, false));
+                    AddChild(new Dropper(4000, 10, player, false));
                     thirdDropperMade = true;
                 }
                 if (!fourthDropperMade && Time.now - dropperTimer >= 2000)
                 {
-                    AddChild(new Dropper(4000, 100, player, true));
+                    AddChild(new Dropper(4000, 10, player, true));
                     fourthDropperMade = true;
                 }
             }
-
             Arrow(player);
         }
 
         public void DisplayHudItems()
         {
-            if (player.HasShield()
+            if (player.HasShield())
             {
                 shieldhud.updateMessage("SHIELD");
             }
@@ -197,7 +196,7 @@ namespace GXPEngine
                     arrowRotation = player.angle;
                 }
             }
-            
+
             arrow.rotation = arrowRotation;
         }
 

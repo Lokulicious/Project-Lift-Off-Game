@@ -6,7 +6,7 @@ public class MyGame : Game
 {
 	Level level;
 	Cursor cursor;
-	public MyGame() : base(1920, 1080, false)
+	public MyGame() : base(1920, 1080, true)
 	{
 		level = new Level();
 		AddChild(level);
