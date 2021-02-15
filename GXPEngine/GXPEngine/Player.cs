@@ -200,7 +200,13 @@ namespace GXPEngine
             }
         }
 
-
+/*        bool IsMouseRight()
+        {
+            if (this.x > Input.mouseX)
+            {
+                return false;
+            }
+        }*/
 
 
         public void AnimateFlipAndWallHang()
