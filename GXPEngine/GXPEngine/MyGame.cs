@@ -13,6 +13,7 @@ public class MyGame : Game
 		targetFps=60;
 		cursor = new Cursor();
 		AddChild(cursor);
+		targetFps = 60;
     }
 
     void Update()

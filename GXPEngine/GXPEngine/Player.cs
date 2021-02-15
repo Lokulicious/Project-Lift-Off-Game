@@ -70,6 +70,8 @@ namespace GXPEngine
             checkShield();
             AnimateFlipAndWallHang();
             Animate();
+            CollisionReset();
+
         }
 
 
@@ -162,10 +164,11 @@ namespace GXPEngine
                 /*                jumpSpeedX = jumpAngle * jumpForceMultiplier;*/
 
                 isJumping = true;
-                
-
 
             }
+
+
+
             if (isJumping)
             {
                 jumpSpeedY -= gravity;
@@ -182,13 +185,31 @@ namespace GXPEngine
 
 
 
-        } 
+        }
 
 
+        void CollisionReset()
+        {
+            if (rightSide && isTouchingWall && this.x > 1220)
+            {
+                this.x = 1220;
+            }
+            else if (!rightSide && isTouchingWall && this.x < 700)
+            {
+                this.x = 700;
+            }
+        }
+
+/*        bool IsMouseRight()
+        {
+            if (this.x > Input.mouseX)
+            {
+                return false;
+            }
+        }*/
 
 
-
-    public void AnimateFlipAndWallHang()
+        public void AnimateFlipAndWallHang()
     {
         if (Input.GetMouseButtonDown(0))
         {
