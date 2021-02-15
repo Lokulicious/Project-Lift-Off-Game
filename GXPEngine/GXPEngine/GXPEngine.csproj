@@ -50,6 +50,7 @@
     <Compile Include="Arrow.cs" />
     <Compile Include="Background.cs" />
     <Compile Include="Cursor.cs" />
+    <Compile Include="DoubleScore.cs" />
     <Compile Include="DroppedThing.cs" />
     <Compile Include="Dropper.cs" />
     <Compile Include="Dust.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="GXPEngine\SoLoud\Soloud.cs" />
     <Compile Include="GXPEngine\SoLoud\SoloudSoundSystem.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="ScoreBall.cs" />
     <Compile Include="Shield.cs" />
     <Compile Include="Wall.cs" />
     <Compile Include="Pickup.cs" />

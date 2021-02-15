@@ -18,11 +18,16 @@ namespace GXPEngine
         float wallLength;
         float wallStartPositionY = 100;
         float wallPositionX = 600;
+
         bool firstDropperMade = false;
         bool secondDropperMade = false;
         bool thirdDropperMade = false;
         bool fourthDropperMade = false;
         bool shieldMade = false;
+        bool scoreBallMade = false;
+        bool scoreDoubleMade = false;
+
+
         bool lost = false;
         int dropperTimer;
         bool dropperTimed = false;
@@ -106,6 +111,16 @@ namespace GXPEngine
                 AddChild(new Shield(game.width / 2));
                 shieldMade = true;
             }
+            if (player.getHeightClimbed() > 10 && !scoreBallMade)
+            {
+                AddChild(new ScoreBall(game.width / 2));
+                scoreBallMade = true;
+            }
+            if (player.getHeightClimbed() > 15 && !scoreDoubleMade)
+            {
+                AddChild(new DoubleScore(game.width / 2));
+                scoreDoubleMade = true;
+            }
             if (player.getHeightClimbed() >= 15 && !firstDropperMade)
             {
                 AddChild(new Dropper(2500, 4, player, false));
@@ -147,7 +162,7 @@ namespace GXPEngine
             else
                 shieldhud.updateMessage("No shield");
 
-            scorehud.updateMessage("Score: " + (player.getHeightClimbed()/10)*10 );
+            scorehud.updateMessage("Score: " + player.checkScore()/10);
         }
         public void checkIfLost()
         {

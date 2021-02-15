@@ -8,9 +8,10 @@ namespace GXPEngine
 {
     class Pickup : Sprite
     {
-        public Pickup(string filename) : base(filename)
+        public Pickup(string filename, int xPos) : base(filename)
         {
-
+            x = xPos;
+            y = 0 - height;
         }
 
         public void Update()

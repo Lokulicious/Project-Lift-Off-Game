@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GXPEngine
 {
-    class Shield : Pickup
+    class DoubleScore : Pickup
     {
-        public Shield(int xPos) : base("shield_big.png",xPos)
+        public DoubleScore(int Xpos) : base("multiplier_big.png",Xpos)
         {
-          
-        }
 
+        }
     }
 }
