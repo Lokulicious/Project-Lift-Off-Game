@@ -101,7 +101,7 @@ namespace GXPEngine
         {
             checkIfLost();
             DisplayHudItems();
-            if (player.getHeightClimbed() % 10 == 0)
+            if (player.getHeightClimbed()  > 70 && !shieldMade)
             {
                 AddChild(new Shield(game.width / 2));
                 shieldMade = true;
@@ -111,7 +111,7 @@ namespace GXPEngine
                 AddChild(new Dropper(2500, 4, player, false));
                 firstDropperMade = true;
             }
-            if (player.getHeightClimbed() >= 30 && !secondDropperMade)
+            if (player.getHeightClimbed() >= 55 && !secondDropperMade)
             {
                 AddChild(new Dropper(2000, 2, player, true));
                 secondDropperMade = true;
