@@ -69,7 +69,6 @@ namespace GXPEngine
 
 
             dashForceMultiplier = 1.3f;
-            dashDrag = 0.7f;
 
         }
 
@@ -256,7 +255,7 @@ namespace GXPEngine
                 }
                 dash = true;
                 dashTimer = 0;
-                dashCooldown = 200;
+                dashCooldown = 120;
             }
 
 
@@ -266,16 +265,18 @@ namespace GXPEngine
                 dashCooldown = 0;
             }
 
-            if (dashTimer > 30)
+            if (dashTimer > 30 || !isJumping)
             {
                 dash = false;
+                dashSpeedX = 0f;
+                dashSpeedY = 0f;
             }
 
 
             if (dash && isJumping)
             {
-                x += (float)dashSpeedX * dashDrag;
-                y -= (float)dashSpeedY * dashDrag;
+                x += (float)dashSpeedX;
+                y -= (float)dashSpeedY;
                 dashTimer++;
             }
         }
