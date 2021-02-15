@@ -43,6 +43,16 @@ namespace GXPEngine
         float slideSpeed;
         public float passiveMoveSpeed;
 
+        float dashForceMultiplier;
+        float dashDrag;
+
+        double dashSpeedX;
+        double dashSpeedY;
+        public bool dash = false;
+        bool mouseRight;
+        int dashCooldown;
+        int dashTimer;
+        
 
         public Player() : base("jump_animation.png",10,1)
         {
@@ -56,6 +66,10 @@ namespace GXPEngine
 
             gravity = 1f;
             jumpForceMultiplier = 0.7f;
+
+
+            dashForceMultiplier = 1.3f;
+            dashDrag = 0.7f;
 
         }
 
@@ -71,7 +85,8 @@ namespace GXPEngine
             AnimateFlipAndWallHang();
             Animate();
             CollisionReset();
-
+            IsMouseRight();
+            Dash();
         }
 
 
@@ -117,6 +132,8 @@ namespace GXPEngine
                 {
                     jumpSpeedY = (90 - jumpAngle) * jumpForceMultiplier;
                     jumpSpeedX = jumpAngle * jumpForceMultiplier;
+
+
                 }
                 else if (jumpAngle < 0 && !rightSide)
                 {
@@ -136,31 +153,30 @@ namespace GXPEngine
 
 
 
-
-               /* if (jumpAngle > 0)
-                {
-                    if (!rightSide)
-                    {
-                        jumpSpeedY = (90 - jumpAngle) * jumpForceMultiplier;
-                    }
-                    else
-                    {
-                        jumpSpeedY = (90 + jumpAngle) * jumpForceMultiplier;
-                    }
-                    jumpSpeedX = jumpAngle * jumpForceMultiplier;
-                }
-                else
-                {
-                    if (!rightSide)
-                    {
-                        jumpSpeedY = (-90 - jumpAngle) * jumpForceMultiplier;
-                    }
-                    else
-                    {
-                        jumpSpeedY = (90 + jumpAngle) * jumpForceMultiplier;
-                    }
-                    jumpSpeedX = -jumpAngle * jumpForceMultiplier;
-                }*/
+                /* if (jumpAngle > 0)
+                 {
+                     if (!rightSide)
+                     {
+                         jumpSpeedY = (90 - jumpAngle) * jumpForceMultiplier;
+                     }
+                     else
+                     {
+                         jumpSpeedY = (90 + jumpAngle) * jumpForceMultiplier;
+                     }
+                     jumpSpeedX = jumpAngle * jumpForceMultiplier;
+                 }
+                 else
+                 {
+                     if (!rightSide)
+                     {
+                         jumpSpeedY = (-90 - jumpAngle) * jumpForceMultiplier;
+                     }
+                     else
+                     {
+                         jumpSpeedY = (90 + jumpAngle) * jumpForceMultiplier;
+                     }
+                     jumpSpeedX = -jumpAngle * jumpForceMultiplier;
+                 }*/
                 /*                jumpSpeedX = jumpAngle * jumpForceMultiplier;*/
 
                 isJumping = true;
@@ -179,9 +195,12 @@ namespace GXPEngine
                 jumpSpeedY = 0f;
             }
 
-            x += (float)jumpSpeedX;
-            y -= (float)jumpSpeedY;
-            
+
+            if (!dash)
+            {
+                x += (float)jumpSpeedX;
+                y -= (float)jumpSpeedY;
+            }
 
 
 
@@ -190,23 +209,78 @@ namespace GXPEngine
 
         void CollisionReset()
         {
-            if (rightSide && isTouchingWall && this.x > 1220)
+            if (rightSide && !isJumping && this.x > 1220)
             {
                 this.x = 1220;
             }
-            else if (!rightSide && isTouchingWall && this.x < 700)
+            else if (!rightSide && !isJumping && this.x < 700)
             {
                 this.x = 700;
             }
         }
 
-/*        bool IsMouseRight()
+        public bool IsMouseRight()
         {
             if (this.x > Input.mouseX)
             {
                 return false;
             }
-        }*/
+            return true;
+        }
+
+
+
+        void Dash()
+        {
+            if (Input.GetKeyDown(Key.SPACE) && isJumping && dashCooldown == 0)
+            {
+                if (jumpAngle > 0 && IsMouseRight())
+                {
+                    dashSpeedY = (90 - jumpAngle) * dashForceMultiplier;
+                    dashSpeedX = jumpAngle * dashForceMultiplier;
+                }
+                else if (jumpAngle < 0 && IsMouseRight())
+                {
+                    dashSpeedY = (-90 - jumpAngle) * dashForceMultiplier;
+                    dashSpeedX = -jumpAngle * dashForceMultiplier;
+                }
+                else if (jumpAngle < 0 && !IsMouseRight())
+                {
+                    dashSpeedY = (90 + jumpAngle) * dashForceMultiplier;
+                    dashSpeedX = jumpAngle * dashForceMultiplier;
+                }
+                else if (jumpAngle > 0 && !IsMouseRight())
+                {
+                    dashSpeedX = -jumpAngle * dashForceMultiplier;
+                    dashSpeedY = (-90 + jumpAngle) * dashForceMultiplier;
+                }
+                dash = true;
+                dashTimer = 0;
+                dashCooldown = 200;
+            }
+
+
+            dashCooldown--;
+            if (dashCooldown < 0)
+            {
+                dashCooldown = 0;
+            }
+
+            if (dashTimer > 30)
+            {
+                dash = false;
+            }
+
+
+            if (dash && isJumping)
+            {
+                x += (float)dashSpeedX * dashDrag;
+                y -= (float)dashSpeedY * dashDrag;
+                dashTimer++;
+            }
+        }
+
+
 
 
         public void AnimateFlipAndWallHang()
