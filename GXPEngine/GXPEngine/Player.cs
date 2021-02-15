@@ -44,7 +44,7 @@ namespace GXPEngine
         public float passiveMoveSpeed;
 
 
-        public Player() : base("new_flip.png",21,1)
+        public Player() : base("jump_animation.png",10,1)
         {
             passiveMoveSpeed = 3;
             SetOrigin(width / 2, height / 2);
@@ -195,26 +195,26 @@ namespace GXPEngine
             startFlip = true;
             startFlipTime = Time.now;
         }
-        foreach (GameObject i in collisions)
-        {
+        
             if (startFlip)
             {
-                SetCycle(4, 14,2);
+                SetCycle(1, 8,5);
                 if (Time.now - startFlipTime > 100)
                 {
                     startFlip = false;
                 }
             }
-            else if (i is Wall && rightSide)
+            else if (onWallRight())
             {
-                SetCycle(20, 1);
+                SetCycle(9, 1);
             }
-            else if (i is Wall && !rightSide)
+            else if (onWallLeft())
             {
                 SetCycle(0, 1);
             }
-        }
+        
     }
+    
     public void gainHeight()
     {
         heightClimbed++;
@@ -264,6 +264,28 @@ namespace GXPEngine
             return hasShield;
         }
 
+        public bool onWallRight()
+        {
+            foreach (GameObject i in collisions)
+            {
+                if(i is Wall && rightSide)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public bool onWallLeft()
+        {
+            foreach (GameObject i in collisions)
+            {
+                if (i is Wall && !rightSide)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
     }
 }

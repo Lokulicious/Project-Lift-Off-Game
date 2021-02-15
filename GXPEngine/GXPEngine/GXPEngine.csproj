@@ -52,6 +52,7 @@
     <Compile Include="Cursor.cs" />
     <Compile Include="DroppedThing.cs" />
     <Compile Include="Dropper.cs" />
+    <Compile Include="Dust.cs" />
     <Compile Include="FilledWall.cs" />
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />
     <Compile Include="GXPEngine\AddOns\TiledLoader.cs" />

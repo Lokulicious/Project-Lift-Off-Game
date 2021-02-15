@@ -13,6 +13,7 @@ namespace GXPEngine
         HUD shieldhud = new HUD("No shield", 450, 25);
         HUD scorehud = new HUD("Score: 0", 1750, 25);
         Arrow arrow;
+        Dust dust;
 
         float wallLength;
         float wallStartPositionY = 100;
@@ -30,9 +31,11 @@ namespace GXPEngine
         
         public Level()
         {
+            dust = new Dust(player);
             GenerateLevel();
             wallLength = game.height + 50;
             wallPositionX = 452;
+            
         }
 
         void GenerateLevel()
@@ -83,6 +86,7 @@ namespace GXPEngine
 
 
             AddChild(player);
+            AddChild(dust);
             AddChild(shieldhud);
             AddChild(scorehud);
 
@@ -97,7 +101,7 @@ namespace GXPEngine
         {
             checkIfLost();
             DisplayHudItems();
-            if (player.getHeightClimbed() >= 80 && !shieldMade)
+            if (player.getHeightClimbed() % 10 == 0)
             {
                 AddChild(new Shield(game.width / 2));
                 shieldMade = true;
