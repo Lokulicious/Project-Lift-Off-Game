@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace GXPEngine
 {
-    class DoubleScore
+    class DoubleScore : Pickup
     {
+        public DoubleScore(int Xpos) : base("multiplier_big.png",Xpos)
+        {
+
+        }
     }
 }

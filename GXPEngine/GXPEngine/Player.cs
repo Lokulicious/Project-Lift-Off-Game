@@ -16,8 +16,13 @@ namespace GXPEngine
         bool startFlip = false;
         GameObject[] collisions = new GameObject[0];
 
-        public bool rightSide = false;
+        private int score;
+
         bool hasShield = false;
+        bool hasDoubleScore = false;
+        int startDoubleScore;
+
+        public bool rightSide = false;
         float jumpforce = 15f;
         int heightClimbed = -1;
         int startFlipTime;
@@ -81,12 +86,13 @@ namespace GXPEngine
             getJumpDirection();
             Jump();
             moveDown();
-            checkShield();
+            checkPickups();
             AnimateFlipAndWallHang();
             Animate();
             CollisionReset();
             IsMouseRight();
             Dash();
+            UpdateScore();
         }
 
 
@@ -281,7 +287,22 @@ namespace GXPEngine
         }
 
 
+        public void UpdateScore()
+        {
+            if (hasDoubleScore)
+                score += (1) *5;
+            else if (!hasDoubleScore)
+                score += (1) ;
 
+            if(Time.now - startDoubleScore > 3000)
+            {
+                hasDoubleScore = false;
+            }
+        }
+        public int checkScore()
+        {
+            return score;
+        }
 
         public void AnimateFlipAndWallHang()
     {
@@ -308,16 +329,16 @@ namespace GXPEngine
                 SetCycle(0, 1);
             }
         
-    }
+     }
     
-    public void gainHeight()
-    {
+        public void gainHeight()
+        {
         heightClimbed++;
-    }
-    public int getHeightClimbed()
-    {
+        }
+        public int getHeightClimbed()
+        {
         return heightClimbed;
-    }
+        }
         public bool hitRock()
         {
             foreach (GameObject i in collisions)
@@ -343,7 +364,7 @@ namespace GXPEngine
             }
             return true;
         }
-        public void checkShield()
+        public void checkPickups()
         {
             foreach (GameObject i in collisions)
             {
@@ -351,6 +372,17 @@ namespace GXPEngine
                 {
                     i.LateDestroy();
                     hasShield = true;
+                }
+                else if (i is ScoreBall)
+                {
+                    i.LateDestroy();
+                    score += 500;
+                }
+                else if(i is DoubleScore)
+                {
+                    i.LateDestroy();
+                    hasDoubleScore = true;
+                    startDoubleScore = Time.now;
                 }
             }
         }
