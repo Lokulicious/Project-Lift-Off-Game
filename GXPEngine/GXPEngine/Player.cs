@@ -271,11 +271,21 @@ namespace GXPEngine
                 dashCooldown = 0;
             }
 
-            if (dashTimer > 30 || !isJumping)
+            if (dashTimer > 8 || !isJumping)
             {
                 dash = false;
                 dashSpeedX = 0f;
                 dashSpeedY = 0f;
+            }
+
+            if (dashTimer > 5)
+            {
+                dashSpeedX = dashSpeedX * 0.6;
+                dashSpeedY = dashSpeedY * 0.6;
+            }
+            else
+            {
+                dashDrag = 0f;
             }
 
 
