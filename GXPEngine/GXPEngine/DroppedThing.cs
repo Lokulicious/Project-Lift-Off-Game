@@ -6,7 +6,7 @@ using GXPEngine;
 
 namespace GXPEngine
 {
-    class DroppedThing : Sprite
+    class DroppedThing : AnimationSprite
     {
         private Player player;
 
@@ -16,7 +16,10 @@ namespace GXPEngine
         float gravity;
         float jumpForce;
 
-        public DroppedThing(float fallspeed, int xPos, Player player, string filename) : base(filename)
+        int totalFrames;
+        int startFrame;
+
+        public DroppedThing(float fallspeed, int xPos, Player player, string filename) : base(filename, 16, 1)
         {
             this.fallspeed = fallspeed;
             x = xPos;
@@ -26,6 +29,10 @@ namespace GXPEngine
             gravity = 1f;
 
             this.player = player;
+
+            this.totalFrames = totalFrames;
+            this.startFrame = startFrame;
+
         }
         public void Update()
         {
@@ -34,9 +41,17 @@ namespace GXPEngine
             {
                 this.Destroy();
             }
-
+            Break();
         }
 
+        public void Break()
+        {
+            SetCycle(0, 16, 1);
+            if (player.hitRock())
+            {
+                Animate();
+            }
+        }
 
 
         /*        void DropJumpMovement()

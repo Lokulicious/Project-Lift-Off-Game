@@ -101,6 +101,7 @@
     <Compile Include="GXPEngine\SoLoud\SoloudSoundSystem.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="ScoreBall.cs" />
+    <Compile Include="ShieldParticle.cs" />
     <Compile Include="Shield.cs" />
     <Compile Include="Wall.cs" />
     <Compile Include="Pickup.cs" />

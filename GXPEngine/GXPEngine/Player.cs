@@ -24,6 +24,8 @@ namespace GXPEngine
         int noOfDashes = 0;
         bool dashStart = false;
 
+
+
         public bool rightSide = false;
         float jumpforce = 15f;
         int heightClimbed = -1;
@@ -61,7 +63,7 @@ namespace GXPEngine
         int dashTimer;
         
 
-        public Player() : base("jump_animation.png",10,1)
+        public Player() : base("new_flip.png",21,1)
         {
             passiveMoveSpeed = 3;
             SetOrigin(width / 2, height / 2);
@@ -362,7 +364,7 @@ namespace GXPEngine
         
             if (startFlip)
             {
-                SetCycle(1, 8,5);
+                SetCycle(1, 21,2);
                 if (Time.now - startFlipTime > 100)
                 {
                     startFlip = false;
@@ -370,7 +372,7 @@ namespace GXPEngine
             }
             else if (onWallRight())
             {
-                SetCycle(9, 1);
+                SetCycle(21, 1);
             }
             else if (onWallLeft())
             {

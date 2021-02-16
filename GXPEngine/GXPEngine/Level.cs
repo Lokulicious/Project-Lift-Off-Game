@@ -14,7 +14,7 @@ namespace GXPEngine
         HUD scorehud = new HUD("Score: 0", 1750, 25);
         HUD dashhud = new HUD("Dashes Available: 0", 400, 100);
         Arrow arrow;
-        Dust dust;
+        ShieldParticle shieldParticle;
 
         float wallLength;
         float wallStartPositionY = 100;
@@ -35,10 +35,12 @@ namespace GXPEngine
         bool dropperTimed = false;
 
         float arrowRotation;
+
+
+        bool shieldParticleMade = false;
         
         public Level()
         {
-            dust = new Dust(player);
             GenerateLevel();
             wallLength = game.height + 50;
             wallPositionX = 452;
@@ -94,7 +96,7 @@ namespace GXPEngine
 
             AddChild(player);
 
-            AddChild(dust);
+
 
             AddChild(shieldhud);
             AddChild(scorehud);
@@ -111,7 +113,7 @@ namespace GXPEngine
         {
             checkIfLost();
             DisplayHudItems();
-            if (player.getHeightClimbed()  > 70 && !shieldMade)
+            if (player.getHeightClimbed()  > 5 && !shieldMade)
             {
                 AddChild(new Shield(game.width / 2));
                 shieldMade = true;
@@ -133,12 +135,12 @@ namespace GXPEngine
             }
             if (player.getHeightClimbed() >= 15 && !firstDropperMade)
             {
-                AddChild(new Dropper(2500, 4, player, false));
+                AddChild(new Dropper(3000, 4, player, false));
                 firstDropperMade = true;
             }
             if (player.getHeightClimbed() >= 55 && !secondDropperMade)
             {
-                AddChild(new Dropper(2000, 2, player, true));
+                AddChild(new Dropper(3000, 2, player, true));
                 secondDropperMade = true;
             }
             if (player.getHeightClimbed() >= 75)
@@ -161,6 +163,8 @@ namespace GXPEngine
                 }
             }
             Arrow(player);
+
+            DisplayShieldParticle();
         }
 
         public void DisplayHudItems()
@@ -170,12 +174,29 @@ namespace GXPEngine
                 shieldhud.updateMessage("SHIELD");
             }
             else
+            {
                 shieldhud.updateMessage("No shield");
+/*                shieldParticle.Destroy();*/
+                shieldParticleMade = false;
+            }
+
 
             scorehud.updateMessage("Score: " + player.checkScore()/10);
 
             dashhud.updateMessage("Dashes Available: " + player.getDashes());
         }
+
+        void DisplayShieldParticle()
+        {
+            if (player.HasShield() && !shieldParticleMade)
+            {
+                shieldParticle = new ShieldParticle(player);
+                AddChild(shieldParticle);
+                shieldParticleMade = true;
+            }
+        }
+
+
         public void checkIfLost()
         {
             if (player.hitRock())

@@ -40,9 +40,9 @@ namespace GXPEngine
             if (TimeToDrop() && !safety)
             {
                 if (bigRocks)
-                    AddChild(new DroppedThing(5, GetFallLane(), _player, "big_rock.png"));
+                    AddChild(new DroppedThing(5, GetFallLane(), _player, "Big_Rock_Break.png"));
                 else
-                    AddChild(new DroppedThing(5, GetFallLane(), _player, "rockie.png"));
+                    AddChild(new DroppedThing(5, GetFallLane(), _player, "Small_Rock_Break.png"));
 
                 drops++;
             }
