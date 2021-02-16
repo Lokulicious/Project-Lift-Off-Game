@@ -91,7 +91,9 @@ namespace GXPEngine
 
 
             AddChild(player);
+
             AddChild(dust);
+
             AddChild(shieldhud);
             AddChild(scorehud);
 

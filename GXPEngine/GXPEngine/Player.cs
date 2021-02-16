@@ -73,7 +73,7 @@ namespace GXPEngine
             jumpForceMultiplier = 0.7f;
 
 
-            dashForceMultiplier = 1.3f;
+            dashForceMultiplier = 1.2f;
 
         }
 
@@ -122,9 +122,18 @@ namespace GXPEngine
 
             jumpRads = Math.Atan(tan);
             jumpAngle = (jumpRads * (180/Math.PI)) * -1;
+
+            if (0 < jumpAngle && jumpAngle < 15)
+            {
+                jumpAngle = 15;
+            }
+            else if (0 > jumpAngle && jumpAngle > -15)
+            {
+                jumpAngle = -15;
+            }
+
             angle = (float)jumpAngle;
 
-           
 
         }
 
@@ -206,8 +215,16 @@ namespace GXPEngine
                 x += (float)jumpSpeedX;
                 y -= (float)jumpSpeedY;
             }
+            else
+            {
+                jumpSpeedX = 0;
+                jumpSpeedY = 0;
+            }
 
-
+            if (y < 0)
+            {
+                y = 0;
+            }
 
         }
 
@@ -271,22 +288,27 @@ namespace GXPEngine
                 dashCooldown = 0;
             }
 
-            if (dashTimer > 8 || !isJumping)
+            if (!isJumping)
             {
                 dash = false;
                 dashSpeedX = 0f;
                 dashSpeedY = 0f;
             }
 
-            if (dashTimer > 5)
+            if (dashTimer == 6)
+            {
+                dashSpeedX = dashSpeedX / 1.7;
+                dashSpeedY = dashSpeedY / 1.7;
+            }
+            /*if (dashTimer > 4)
             {
                 dashSpeedX = dashSpeedX * 0.6;
                 dashSpeedY = dashSpeedY * 0.6;
-            }
-            else
+            }*/
+            /*else
             {
                 dashDrag = 0f;
-            }
+            }*/
 
 
             if (dash && isJumping)
@@ -295,6 +317,9 @@ namespace GXPEngine
                 y -= (float)dashSpeedY;
                 dashTimer++;
             }
+
+           
+
         }
 
 

@@ -53,6 +53,7 @@
     <Compile Include="DoubleScore.cs" />
     <Compile Include="DroppedThing.cs" />
     <Compile Include="Dropper.cs" />
+    <Compile Include="ShieldActivate.cs" />
     <Compile Include="Dust.cs" />
     <Compile Include="FilledWall.cs" />
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />
