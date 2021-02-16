@@ -21,6 +21,8 @@ namespace GXPEngine
         bool hasShield = false;
         bool hasDoubleScore = false;
         int startDoubleScore;
+        int noOfDashes = 0;
+        bool dashStart = false;
 
         public bool rightSide = false;
         float jumpforce = 15f;
@@ -90,7 +92,7 @@ namespace GXPEngine
             Animate();
             CollisionReset();
             IsMouseRight();
-            Dash();
+            checkDash();
             UpdateScore();
         }
 
@@ -106,6 +108,17 @@ namespace GXPEngine
             }
 
             y += playerMoveSpeed;
+        }
+
+        void checkDash()
+        {
+            if (noOfDashes > 0)
+            {
+                Dash();
+            }
+            else
+                dash = false;
+           
         }
 
 
@@ -256,6 +269,7 @@ namespace GXPEngine
         {
             if (Input.GetKeyDown(Key.SPACE) && isJumping && dashCooldown == 0)
             {
+                dashStart = true;
                 if (jumpAngle > 0 && IsMouseRight())
                 {
                     dashSpeedY = (90 - jumpAngle) * dashForceMultiplier;
@@ -317,8 +331,6 @@ namespace GXPEngine
                 y -= (float)dashSpeedY;
                 dashTimer++;
             }
-
-           
 
         }
 
@@ -420,6 +432,16 @@ namespace GXPEngine
                     hasDoubleScore = true;
                     startDoubleScore = Time.now;
                 }
+                else if(i is Dash)
+                {
+                    i.LateDestroy();
+                    noOfDashes+=2;
+                }
+                else if(i is Wall && dashStart)
+                {
+                    dashStart = false;
+                    noOfDashes--;
+                }
             }
         }
         public bool HasShield()
@@ -448,6 +470,10 @@ namespace GXPEngine
                 }
             }
             return false;
+        }
+        public int getDashes()
+        {
+            return noOfDashes;
         }
 
     }

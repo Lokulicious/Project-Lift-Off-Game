@@ -10,8 +10,9 @@ namespace GXPEngine
 
         Player player = new Player();
         Background background = new Background();
-        HUD shieldhud = new HUD("No shield", 450, 25);
+        HUD shieldhud = new HUD("No shield", 400, 25);
         HUD scorehud = new HUD("Score: 0", 1750, 25);
+        HUD dashhud = new HUD("Dashes Available: 0", 400, 100);
         Arrow arrow;
         Dust dust;
 
@@ -26,6 +27,7 @@ namespace GXPEngine
         bool shieldMade = false;
         bool scoreBallMade = false;
         bool scoreDoubleMade = false;
+        bool dashMade = false;
 
 
         bool lost = false;
@@ -96,6 +98,7 @@ namespace GXPEngine
 
             AddChild(shieldhud);
             AddChild(scorehud);
+            AddChild(dashhud);
 
             arrow = new Arrow(player, player.x, player.y);
             AddChild(arrow);
@@ -112,6 +115,11 @@ namespace GXPEngine
             {
                 AddChild(new Shield(game.width / 2));
                 shieldMade = true;
+            }
+            if (player.getHeightClimbed() > 25 && !dashMade)
+            {
+                AddChild(new Dash(game.width / 2));
+                dashMade = true;
             }
             if (player.getHeightClimbed() > 10 && !scoreBallMade)
             {
@@ -165,6 +173,8 @@ namespace GXPEngine
                 shieldhud.updateMessage("No shield");
 
             scorehud.updateMessage("Score: " + player.checkScore()/10);
+
+            dashhud.updateMessage("Dashes Available: " + player.getDashes());
         }
         public void checkIfLost()
         {

@@ -50,15 +50,16 @@
     <Compile Include="Arrow.cs" />
     <Compile Include="Background.cs" />
     <Compile Include="Cursor.cs" />
+    <Compile Include="Dash.cs" />
     <Compile Include="DoubleScore.cs" />
     <Compile Include="DroppedThing.cs" />
     <Compile Include="Dropper.cs" />
-    <Compile Include="ShieldActivate.cs" />
     <Compile Include="Dust.cs" />
     <Compile Include="FilledWall.cs" />
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />
     <Compile Include="GXPEngine\AddOns\TiledLoader.cs" />
     <Compile Include="HUD.cs" />
+    <Compile Include="Jumpwind.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="MyGame.cs" />
     <Compile Include="GXPEngine\Canvas.cs" />
