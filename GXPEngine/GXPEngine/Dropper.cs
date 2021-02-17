@@ -15,6 +15,8 @@ namespace GXPEngine
         int drops = 0;
         bool safety = false;
         bool bigRocks;
+        int currentheight;
+        GameObject toAdd = new Pivot();
         public Dropper(float frequency, int endAfter, Player player, bool bigRocks)
         {
             this.frequency = frequency;
@@ -22,6 +24,7 @@ namespace GXPEngine
             this.bigRocks = bigRocks;
             timeOfLastDrop = Time.now;
             _player = player;
+            
             
         }
         public void Update()
@@ -36,13 +39,47 @@ namespace GXPEngine
         }
         public void dropRocks()
         {
-            
+            currentheight = _player.getHeightClimbed();
+
             if (TimeToDrop() && !safety)
             {
-                if (bigRocks)
-                    AddChild(new DroppedThing(5, GetFallLane(), _player, "Big_Rock_Break.png"));
-                else
-                    AddChild(new DroppedThing(5, GetFallLane(), _player, "Small_Rock_Break.png"));
+                if (bigRocks && currentheight < 110)
+                {
+                    toAdd = new DroppedThing(5, GetFallLane(), _player, "MRBbreak.png");
+                    AddChild(toAdd);
+                    game.SetChildIndex(toAdd, game.GetChildren().Count);
+                }
+
+                else if (!bigRocks && currentheight < 110)
+                {
+                    toAdd = new DroppedThing(5, GetFallLane(), _player, "MRSbreak.png");
+                    AddChild(toAdd);
+                    game.SetChildIndex(toAdd, game.GetChildren().Count);
+                }
+                else if (bigRocks && currentheight < 150)
+                {
+                    toAdd = new DroppedThing(5, GetFallLane(), _player, "CRBbreak.png");
+                    AddChild(toAdd);
+                    game.SetChildIndex(toAdd, game.GetChildren().Count);
+                }
+                else if (!bigRocks && currentheight < 150)
+                {
+                    toAdd = new DroppedThing(5, GetFallLane(), _player, "CRSbreak.png");
+                    AddChild(toAdd);
+                    game.SetChildIndex(toAdd, game.GetChildren().Count);
+                }
+                else if (bigRocks && currentheight >= 150)
+                {
+                    toAdd = new DroppedThing(5, GetFallLane(), _player, "SRBbreak.png");
+                    AddChild(toAdd);
+                    game.SetChildIndex(toAdd, game.GetChildren().Count);
+                }
+                else if (!bigRocks && currentheight >= 150)
+                {
+                    toAdd = new DroppedThing(5, GetFallLane(), _player, "SRSbreak.png");
+                    AddChild(toAdd);
+                    game.SetChildIndex(toAdd, game.GetChildren().Count);
+                }
 
                 drops++;
             }

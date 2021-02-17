@@ -18,7 +18,7 @@ namespace GXPEngine
 
         private int score;
 
-        bool hasShield = false;
+        int noOfShields = 0;
         bool hasDoubleScore = false;
         int startDoubleScore;
         int noOfDashes = 0;
@@ -373,7 +373,7 @@ namespace GXPEngine
         
             if (startFlip)
             {
-                SetCycle(1, 21,2);
+                SetCycle(4, 12,2);
                 if (Time.now - startFlipTime > 100)
                 {
                     startFlip = false;
@@ -402,14 +402,15 @@ namespace GXPEngine
         {
             foreach (GameObject i in collisions)
             {
-                if (i is DroppedThing && !hasShield)
+                if (i is DroppedThing && noOfShields == 0)
                 {
+                    if(!((DroppedThing)i).Broken())
                     return true;
                 }
-                else if (i is DroppedThing && hasShield)
+                else if (i is DroppedThing && noOfShields > 0)
                 {
-                    i.Destroy();
-                    hasShield = false;
+                    ((DroppedThing)i).Break();
+                    noOfShields--;
                 }
             }
 
@@ -429,8 +430,11 @@ namespace GXPEngine
             {
                 if (i is Shield)
                 {
-                    i.LateDestroy();
-                    hasShield = true;
+                    if (noOfShields < 3)
+                    {
+                        i.LateDestroy();
+                        noOfShields ++;
+                    }
                 }
                 else if (i is ScoreBall)
                 {
@@ -445,8 +449,11 @@ namespace GXPEngine
                 }
                 else if(i is Dash)
                 {
-                    i.LateDestroy();
-                    noOfDashes+=2;
+                    if (noOfDashes < 6)
+                    {
+                        i.LateDestroy();
+                        noOfDashes += 2;
+                    }
                 }
                 else if(i is Wall && dashStart)
                 {
@@ -457,7 +464,16 @@ namespace GXPEngine
         }
         public bool HasShield()
         {
-            return hasShield;
+            if (noOfShields > 0)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+        public int getShields()
+        {
+            return noOfShields;
         }
 
         public bool onWallRight()

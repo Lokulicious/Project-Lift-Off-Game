@@ -7,6 +7,7 @@ using System;
     {
     private float scrollspeed;
     private bool startScroll;
+    public bool looped = false;
    
     public Background(string filename, int yPos, float scrollspeed, bool startScroll, float a) : base(filename)
     {
@@ -17,20 +18,32 @@ using System;
         this.startScroll = startScroll;
         alpha = a;
     }
-   
+    public Background(string filename, float scrollspeed, bool startScroll, float a) : base(filename)
+    {
+        SetOrigin(width / 2, 0);
+        x = game.width / 2;
+        y = -height-20;
+        this.scrollspeed = scrollspeed;
+        this.startScroll = startScroll;
+        alpha = a;
+    }
+
 
 
     void Update()
     {
-       
         if (startScroll)
         {
             y += scrollspeed;
         }
+        if(y > game.height)
+        {
+            this.LateDestroy();
+        }
     }
     public bool reachedEnd()
     {
-        if (y >= -50)
+        if (y > -50)
         {
             return true;
         }
@@ -55,6 +68,10 @@ using System;
         {
             LateDestroy();
         }
+    }
+    public void reset()
+    {
+        y = -height;
     }
 
 }

@@ -13,9 +13,9 @@ namespace GXPEngine
         StringFormat drawFormat = new StringFormat();
         int xPos;
         int yPos;
-        public HUD(string s, int x, int y) : base(2000, 1080, true)
+        public HUD(string s, int x, int y, float fontSize) : base(2000, 1080, true)
         {
-            Messagefont = new Font("Arial", 32f);
+            Messagefont = new Font("Arial", fontSize);
             message = s;
             drawFormat.Alignment = StringAlignment.Near;
             scale = 0.8F;

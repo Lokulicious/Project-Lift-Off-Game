@@ -1,6 +1,7 @@
 ﻿using GXPEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
 namespace GXPEngine
 {
@@ -11,13 +12,22 @@ namespace GXPEngine
         Player player = new Player();
 
         Background[] backgrounds = new Background[9];
+        List<Background> loopPlanet = new List<Background>();
+        List<Background> loopDust = new List<Background>();
+        List<Background> loopStars = new List<Background>();
+        List<GameObject> foregroundObjects = new List<GameObject>();
 
-       
+        GameObject toAdd = new Pivot();
+
+        HUD shieldhud = new HUD("No shield", 550, 75,64);
+        HUDimage shieldHudImg = new HUDimage("shieldIcon.png", 300, 25);
+
+        HUD scorehud = new HUD("Score: 0", 1750, 25,32);
+
+        HUD dashhud = new HUD("Dashes Available: 0", 550, 350,64);
+        HUDimage dashHudImg = new HUDimage("dashIcon.png", 300,250);
 
 
-        HUD shieldhud = new HUD("No shield", 400, 25);
-        HUD scorehud = new HUD("Score: 0", 1750, 25);
-        HUD dashhud = new HUD("Dashes Available: 0", 400, 100);
 
         Arrow arrow;
         ShieldParticle shieldParticle;
@@ -25,7 +35,7 @@ namespace GXPEngine
         float wallLength;
         float wallStartPositionY = 100;
         float wallPositionX = 600;
-
+       
         bool firstDropperMade = false;
         bool secondDropperMade = false;
         bool thirdDropperMade = false;
@@ -106,6 +116,8 @@ namespace GXPEngine
             AddChild(shieldhud);
             AddChild(scorehud);
             AddChild(dashhud);
+            AddChild(dashHudImg);
+            AddChild(shieldHudImg);
 
             arrow = new Arrow(player, player.x, player.y);
             AddChild(arrow);
@@ -124,6 +136,8 @@ namespace GXPEngine
             backgrounds[6] = new Background("space_1.png", -1100,  0.5f, false,0);
             backgrounds[7] = new Background("space_2.png", -1100,  2, false, 0);
             backgrounds[8] = new Background("space_3.png", -2500,  4, false, 0);
+            
+
 
             foreach (Background b in backgrounds)
             {
@@ -135,20 +149,25 @@ namespace GXPEngine
 
         void Update()
         {
-            
+            //Console.WriteLine(player.getHeightClimbed());
             switchBG();
             checkIfLost();
             DisplayHudItems();
+            adjustDrawOrder();
 
 
-            if (player.getHeightClimbed()  > 5 && !shieldMade)
+            if (player.getHeightClimbed() > 5 && !shieldMade)
             {
-                AddChild(new Shield(game.width / 2));
+                toAdd = new Shield(game.width / 2);
+                AddChild(toAdd);
+                foregroundObjects.Add(toAdd);
                 shieldMade = true;
             }
             if (player.getHeightClimbed() > 25 && !dashMade)
             {
-                AddChild(new Dash(game.width / 2));
+                toAdd = new Dash(game.width / 2);
+                AddChild(toAdd);
+                foregroundObjects.Add(toAdd);
                 dashMade = true;
             }
             if (player.getHeightClimbed() > 10 && !scoreBallMade)
@@ -181,12 +200,12 @@ namespace GXPEngine
 
                 if (!thirdDropperMade)
                 {
-                    AddChild(new Dropper(4000, 10, player, false));
+                    AddChild(new Dropper(4000, 100, player, false));
                     thirdDropperMade = true;
                 }
                 if (!fourthDropperMade && Time.now - dropperTimer >= 2000)
                 {
-                    AddChild(new Dropper(4000, 10, player, true));
+                    AddChild(new Dropper(4000, 100, player, true));
                     fourthDropperMade = true;
                 }
             }
@@ -224,29 +243,94 @@ namespace GXPEngine
                 backgrounds[3].fadeout();
                 backgrounds[4].fadeout();
                 backgrounds[5].fadeout();
+                
             }
+
+            //looping space
+
+            if (backgrounds[8].reachedEnd() && !backgrounds[8].looped)
+            {
+                loopPlanet.Add(new Background("space_3.png", 4, true, 1));
+                AddChild(loopPlanet[loopPlanet.Count - 1]);
+                game.SetChildIndex(loopPlanet[loopPlanet.Count - 1], 2);
+                backgrounds[8].looped = true;
+            }
+
+            if (loopPlanet.Count > 0)
+            {
+                if (loopPlanet[loopPlanet.Count - 1].reachedEnd() )
+                {
+                    
+                    loopPlanet.Add(new Background("space_3.png", 4, true, 1));
+                    AddChild(loopPlanet[loopPlanet.Count - 1]);
+                    game.SetChildIndex(loopPlanet[loopPlanet.Count - 1], 2);
+
+                }
+            }
+
+
+
+            if (backgrounds[7].reachedEnd() && !backgrounds[7].looped)
+            {
+                loopDust.Add(new Background("space_2.png", 2, true, 1));
+                AddChild(loopDust[loopDust.Count - 1]);
+                game.SetChildIndex(loopDust[loopDust.Count - 1], 1);
+                backgrounds[7].looped = true;
+            }
+
+            if (loopDust.Count > 0)
+            {
+                if (loopDust[loopDust.Count - 1].reachedEnd())
+                {
+
+                    loopDust.Add(new Background("space_2.png", 2, true, 1));
+                    AddChild(loopDust[loopDust.Count - 1]);
+                    game.SetChildIndex(loopDust[loopDust.Count - 1], 1);
+
+                }
+            }
+
+
+            if (backgrounds[6].reachedEnd() && !backgrounds[6].looped)
+            {
+                loopStars.Add(new Background("space_1.png", 0.5f, true, 1));
+                AddChild(loopStars[loopStars.Count - 1]);
+                game.SetChildIndex(loopStars[loopStars.Count - 1], 0);
+                backgrounds[6].looped = true;
+            }
+
+            if (loopStars.Count > 0)
+            {
+                if (loopStars[loopStars.Count - 1].reachedEnd())
+                {
+
+                    loopStars.Add(new Background("space_1.png", 0.5f, true, 1));
+                    AddChild(loopStars[loopStars.Count - 1]);
+                    game.SetChildIndex(loopStars[loopStars.Count - 1], 0);
+
+                }
+            }
+
+
+
 
 
 
         }
 
+        void adjustDrawOrder()
+        {
+            game.SetChildIndex(player, game.GetChildren().Count);
+            game.SetChildIndex(arrow, game.GetChildren().Count);
+        }
         public void DisplayHudItems()
         {
-            if (player.HasShield())
-            {
-                shieldhud.updateMessage("SHIELD");
-            }
-            else
-            {
-                shieldhud.updateMessage("No shield");
-/*                shieldParticle.Destroy();*/
-                shieldParticleMade = false;
-            }
 
+            shieldhud.updateMessage(" : " + player.getShields());
 
             scorehud.updateMessage("Score: " + player.checkScore()/10);
 
-            dashhud.updateMessage("Dashes Available: " + player.getDashes());
+            dashhud.updateMessage(" : " + player.getDashes());
         }
 
         void DisplayShieldParticle()
@@ -265,10 +349,12 @@ namespace GXPEngine
             if (player.hitRock())
             {
                 lost = true;
+               
             }
             if (!player.onMap())
             {
                 lost = true;
+                
             }
         }
         public bool Lost()

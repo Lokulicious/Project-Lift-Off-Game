@@ -8,6 +8,7 @@ namespace GXPEngine
 {
     class Pickup : Sprite
     {
+        private bool destroyed =false;
         public Pickup(string filename, int xPos) : base(filename)
         {
             x = xPos;
@@ -17,6 +18,7 @@ namespace GXPEngine
         public void Update()
         {
             y += 3;
+            
 
         }
         void OnCollision(GameObject other)
@@ -28,5 +30,14 @@ namespace GXPEngine
                 //player.gainPickupEffect();
             }
         }
+        override protected void OnDestroy()
+        {
+            destroyed = true;
+        }
+        public bool Destroyed()
+        {
+            return destroyed;
+        }
+
     }
 }

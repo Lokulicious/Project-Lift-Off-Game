@@ -59,6 +59,7 @@
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />
     <Compile Include="GXPEngine\AddOns\TiledLoader.cs" />
     <Compile Include="HUD.cs" />
+    <Compile Include="HUDimage.cs" />
     <Compile Include="Jumpwind.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="MainMenu.cs" />

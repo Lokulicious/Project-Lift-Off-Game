@@ -52,10 +52,7 @@ public class MyGame : Game
 
         MusicController();
         startGame();
-
-
-        Console.WriteLine(currentFps);
-        }
+    }
 
 
 
