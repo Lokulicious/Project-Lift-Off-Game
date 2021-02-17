@@ -10,7 +10,7 @@ using GXPEngine;
 
 
     Player menuPlayer = new Player();
-    Background menuBG = new Background();
+    Background menuBG = new Background("bg_big.png", -20, 0, false, 1);
     StartText startText = new StartText(-15);
     StartTextShadow startTextShadow;
     MenuOverlay menuOverlay = new MenuOverlay();
@@ -25,7 +25,6 @@ using GXPEngine;
     {
         GenerateEnvironment();
         AddChild(menuPlayer);
-
         AddChild(menuOverlay);
         startTextShadow = new StartTextShadow(menuPlayer);
         /*AddChild(startTextShadow);*/
