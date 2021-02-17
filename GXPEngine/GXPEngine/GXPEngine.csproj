@@ -61,6 +61,8 @@
     <Compile Include="HUD.cs" />
     <Compile Include="Jumpwind.cs" />
     <Compile Include="Level.cs" />
+    <Compile Include="MainMenu.cs" />
+    <Compile Include="MenuOverlay.cs" />
     <Compile Include="MyGame.cs" />
     <Compile Include="GXPEngine\Canvas.cs" />
     <Compile Include="GXPEngine\Game.cs" />
@@ -103,6 +105,7 @@
     <Compile Include="ScoreBall.cs" />
     <Compile Include="ShieldParticle.cs" />
     <Compile Include="Shield.cs" />
+    <Compile Include="StartText.cs" />
     <Compile Include="Wall.cs" />
     <Compile Include="Pickup.cs" />
   </ItemGroup>

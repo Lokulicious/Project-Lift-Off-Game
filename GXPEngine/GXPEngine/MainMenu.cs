@@ -1,0 +1,111 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using GXPEngine;
+
+    class MainMenu : GameObject
+    {
+
+
+    Player menuPlayer = new Player();
+    Background menuBG = new Background();
+    StartText startText = new StartText(100);
+    MenuOverlay menuOverlay = new MenuOverlay();
+
+    float wallPositionX = 600;
+    float wallStartPositionY = 100;
+
+    public bool isStarting = false;
+
+    public MainMenu()
+    {
+        GenerateEnvironment();
+        AddChild(menuPlayer);
+
+        AddChild(menuOverlay);
+        AddChild(startText);
+    }
+
+    void Update()
+    {
+        checkIfStart();
+        Start();
+    }
+
+    void GenerateEnvironment()
+    {
+        //add BG
+        AddChild(menuBG);
+
+        //Generate Solid Walls
+        for (int x = 0; x < 5; x++)
+        {
+            for (int y = 0; y < 9; y++)
+            {
+                FilledWall filledwall = new FilledWall();
+                filledwall.x = x * filledwall.width;
+                filledwall.y = y * filledwall.height - 50;
+                AddChild(filledwall);
+            }
+        }
+
+        for (int x = 0; x < 5; x++)
+        {
+            for (int y = 0; y < 9; y++)
+            {
+                FilledWall filledwall = new FilledWall();
+                filledwall.x = game.width - x * filledwall.width - 50;
+                filledwall.y = y * filledwall.height - 50;
+                AddChild(filledwall);
+            }
+        }
+
+
+        //Generate Walls
+        for (y = 0; y < 18; y++)
+        {
+            Wall wallLeft = new Wall(menuPlayer);
+            wallLeft.y = y * wallLeft.height - wallStartPositionY;
+            wallLeft.x = wallPositionX;
+            wallLeft.scaleX = -1;
+            AddChild(wallLeft);
+        }
+
+        for (y = 0; y < 18; y++)
+        {
+            Wall wallRight = new Wall(menuPlayer);
+            wallRight.y = y * wallRight.height - wallStartPositionY;
+            wallRight.x = game.width - wallPositionX;
+            AddChild(wallRight);
+            
+        }
+
+
+    }
+
+
+    public void checkIfStart()
+    {
+        if (Input.GetKeyDown(Key.ENTER))
+        {
+            isStarting = true;
+            Console.WriteLine("StartGame");
+        }
+    }
+
+
+    void PlayerJumping()
+    {
+
+    }
+
+
+    public bool Start()
+    {
+        return isStarting;
+    }
+
+
+}
