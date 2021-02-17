@@ -22,7 +22,7 @@ namespace GXPEngine
             this.bigRocks = bigRocks;
             timeOfLastDrop = Time.now;
             _player = player;
-            Console.WriteLine("---------------------------------------------------------------------------------------");
+            
         }
         public void Update()
         {
@@ -36,7 +36,7 @@ namespace GXPEngine
         }
         public void dropRocks()
         {
-            Console.WriteLine(drops);
+            
             if (TimeToDrop() && !safety)
             {
                 if (bigRocks)

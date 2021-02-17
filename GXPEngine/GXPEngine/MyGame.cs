@@ -17,12 +17,13 @@ public class MyGame : Game
 
 	public MyGame() : base(1920, 1080, true, false, -1, -1, true)
 	{
+		targetFps = 60;
 		level = new Level();
 		AddChild(level);
-		targetFps=60;
 		cursor = new Cursor();
 		AddChild(cursor);
-		targetFps = 60;
+
+		
 
 		music = new Sound("music_powerup.mp3", true, false);
 		music.Play(false, 0);

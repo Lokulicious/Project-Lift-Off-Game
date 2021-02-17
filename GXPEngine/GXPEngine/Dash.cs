@@ -8,7 +8,7 @@ namespace GXPEngine
 {
     class Dash : Pickup
     {
-        public Dash(int xPos) : base("dashPH.png",xPos) { 
+        public Dash(int xPos) : base("dash.png",xPos) { 
 
 
         }

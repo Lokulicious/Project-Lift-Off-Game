@@ -9,10 +9,16 @@ namespace GXPEngine
 
 
         Player player = new Player();
-        Background background = new Background();
+
+        Background[] backgrounds = new Background[9];
+
+       
+
+
         HUD shieldhud = new HUD("No shield", 400, 25);
         HUD scorehud = new HUD("Score: 0", 1750, 25);
         HUD dashhud = new HUD("Dashes Available: 0", 400, 100);
+
         Arrow arrow;
         ShieldParticle shieldParticle;
 
@@ -49,7 +55,7 @@ namespace GXPEngine
 
         void GenerateLevel()
         {
-            AddChild(background);
+            loadBackgrounds();
 
             for (int x = 0; x < 5; x++)
             {
@@ -106,13 +112,36 @@ namespace GXPEngine
             AddChild(arrow);
         }
 
+        void loadBackgrounds()
+        {
+            backgrounds[0] = new Background("mountain_art_3.png", -1100,0.5f, true,1);
+            backgrounds[1] = new Background("mountain_art_2.png", -1500,1f,true,1);
+            backgrounds[2] = new Background("mountain_art_1.png", -1100, 2,true,1);
+
+            backgrounds[3] = new Background("cave_3.png", -1100, 1f,false,0);
+            backgrounds[4] = new Background("cave_2.png", -1100, 1.20f, false,0);
+            backgrounds[5] = new Background("cave_1.png", -1100,  1.40f, false,0);
+
+            backgrounds[6] = new Background("space_1.png", -1100,  0.5f, false,0);
+            backgrounds[7] = new Background("space_2.png", -1100,  2, false, 0);
+            backgrounds[8] = new Background("space_3.png", -2500,  4, false, 0);
+
+            foreach (Background b in backgrounds)
+            {
+                AddChild(b);
+            }
+        }
 
 
-        
+
         void Update()
         {
+            
+            switchBG();
             checkIfLost();
             DisplayHudItems();
+
+
             if (player.getHeightClimbed()  > 5 && !shieldMade)
             {
                 AddChild(new Shield(game.width / 2));
@@ -162,9 +191,44 @@ namespace GXPEngine
                     fourthDropperMade = true;
                 }
             }
-            Arrow(player);
 
+            Arrow(player);
             DisplayShieldParticle();
+        }
+
+        void switchBG()
+        {
+            if (backgrounds[0] != null && backgrounds[0].reachedEnd())
+            {
+                backgrounds[3].StartScroll();
+                backgrounds[4].StartScroll();
+                backgrounds[5].StartScroll();
+
+                backgrounds[3].fadein();
+                backgrounds[4].fadein();
+                backgrounds[5].fadein();
+
+                backgrounds[0].fadeout();
+                backgrounds[1].fadeout();
+                backgrounds[2].fadeout();
+            }
+            if (backgrounds[3] != null && backgrounds[5].reachedEnd())
+            {
+                backgrounds[6].StartScroll();
+                backgrounds[7].StartScroll();
+                backgrounds[8].StartScroll();
+
+                backgrounds[6].fadein();
+                backgrounds[7].fadein();
+                backgrounds[8].fadein();
+
+                backgrounds[3].fadeout();
+                backgrounds[4].fadeout();
+                backgrounds[5].fadeout();
+            }
+
+
+
         }
 
         public void DisplayHudItems()
