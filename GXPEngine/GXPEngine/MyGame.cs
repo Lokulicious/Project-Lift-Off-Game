@@ -4,28 +4,29 @@ using GXPEngine;
 
 public class MyGame : Game
 {
-	Level level;
-	Cursor cursor;
+    MainMenu mainMenu;
+    Level level;
+    Cursor cursor;
 	
 	Sound music;
     SoundChannel musicChannel;
 	SoundChannel vfx;
 
     float musicVolume;
-	float vfxVolume;
+	float vfxVolume; //doesn't control jump sound volume yet
 
 
-	public MyGame() : base(1920, 1080, true, false, -1, -1, true)
+	public MyGame() : base(1920, 1080, false, false, -1, -1, true)
 	{
-		targetFps = 60;
-		level = new Level();
-		AddChild(level);
-		cursor = new Cursor();
-		AddChild(cursor);
+        level = new Level();
 
-		
+        mainMenu = new MainMenu();
+        AddChild(mainMenu);
 
-		music = new Sound("music_powerup.mp3", true, false);
+        targetFps = 60;
+
+
+        music = new Sound("music_powerup.mp3", true, false);
 		music.Play(false, 0);
 
         musicChannel = new SoundChannel(1);
@@ -33,24 +34,46 @@ public class MyGame : Game
 
         musicVolume = 0.2f;
         vfxVolume = 0.2f;
+
+
     }
 
     void Update()
 	{
-		if (level.Lost())
-		{
-			level.Destroy();
-			cursor.Destroy();
-			level = new Level();
-			AddChild(level);
-			cursor = new Cursor();
-			AddChild(cursor);
-		}
+        if (level.Lost())
+        {
+            level.Destroy();
+            cursor.Destroy();
+            level = new Level();
+            AddChild(level);
+            cursor = new Cursor();
+            AddChild(cursor);
+        }
 
-		MusicController();
-	}
+        MusicController();
+        startGame();
 
-	static void Main()
+
+        Console.WriteLine(currentFps);
+        }
+
+
+
+    void startGame()
+    {
+        if (mainMenu.Start())
+        {
+            mainMenu.Destroy();
+            level = new Level();
+            AddChild(level);
+            mainMenu.isStarting = false;
+            cursor = new Cursor();
+            AddChild(cursor);
+        }
+    }
+
+
+    static void Main()
 	{
 		new MyGame().Start();
 	}

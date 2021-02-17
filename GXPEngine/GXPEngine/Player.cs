@@ -82,8 +82,8 @@ namespace GXPEngine
 
             dashForceMultiplier = 1.2f;
 
-            jump = new Sound("jump1.wav", false, false);
-            vfx = new SoundChannel(2);
+            jump = new Sound("jump.mp3", false, false);
+            vfx = new SoundChannel(1);
 
         }
 
@@ -102,6 +102,8 @@ namespace GXPEngine
             IsMouseRight();
             checkDash();
             UpdateScore();
+
+            vfx.Volume = 0.1f;
         }
 
 
