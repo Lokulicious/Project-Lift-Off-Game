@@ -16,17 +16,17 @@ public class MyGame : Game
 	float vfxVolume; //doesn't control jump sound volume yet
 
 
-	public MyGame() : base(1920, 1080, true, false, -1, -1, true)
+	public MyGame() : base(1920, 1080, false, false, -1, -1, true)
 	{
         level = new Level();
 
         mainMenu = new MainMenu();
         AddChild(mainMenu);
 
+        targetFps = 60;
 
-		targetFps = 60;
 
-		music = new Sound("music_powerup.mp3", true, false);
+        music = new Sound("music_powerup.mp3", true, false);
 		music.Play(false, 0);
 
         musicChannel = new SoundChannel(1);
@@ -34,6 +34,8 @@ public class MyGame : Game
 
         musicVolume = 0.2f;
         vfxVolume = 0.2f;
+
+
     }
 
     void Update()
@@ -50,7 +52,10 @@ public class MyGame : Game
 
         MusicController();
         startGame();
-    }
+
+
+        Console.WriteLine(currentFps);
+        }
 
 
 

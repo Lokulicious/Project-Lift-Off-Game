@@ -11,8 +11,10 @@ using GXPEngine;
 
     Player menuPlayer = new Player();
     Background menuBG = new Background();
-    StartText startText = new StartText(100);
+    StartText startText = new StartText(-15);
+    StartTextShadow startTextShadow;
     MenuOverlay menuOverlay = new MenuOverlay();
+    NudinoLogo nudinoLogo = new NudinoLogo(300);
 
     float wallPositionX = 600;
     float wallStartPositionY = 100;
@@ -25,7 +27,10 @@ using GXPEngine;
         AddChild(menuPlayer);
 
         AddChild(menuOverlay);
+        startTextShadow = new StartTextShadow(menuPlayer);
+        /*AddChild(startTextShadow);*/
         AddChild(startText);
+        AddChild(nudinoLogo);
     }
 
     void Update()

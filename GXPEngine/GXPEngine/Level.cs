@@ -44,7 +44,6 @@ namespace GXPEngine
             GenerateLevel();
             wallLength = game.height + 50;
             wallPositionX = 452;
-            
         }
 
         void GenerateLevel()
