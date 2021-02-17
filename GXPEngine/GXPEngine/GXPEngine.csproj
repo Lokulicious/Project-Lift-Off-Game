@@ -56,8 +56,10 @@
     <Compile Include="Dropper.cs" />
     <Compile Include="Dust.cs" />
     <Compile Include="FilledWall.cs" />
+    <Compile Include="GameOverMenu.cs" />
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />
     <Compile Include="GXPEngine\AddOns\TiledLoader.cs" />
+    <Compile Include="HighScoreText.cs" />
     <Compile Include="HUD.cs" />
     <Compile Include="HUDimage.cs" />
     <Compile Include="Jumpwind.cs" />
@@ -112,6 +114,7 @@
     <Compile Include="StartTextShadow.cs" />
     <Compile Include="Wall.cs" />
     <Compile Include="Pickup.cs" />
+    <Compile Include="YourScoreText.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

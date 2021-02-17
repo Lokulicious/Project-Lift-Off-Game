@@ -6,7 +6,10 @@ public class MyGame : Game
 {
     MainMenu mainMenu;
     Level level;
+/*    GameOverMenu gameOverMenu;*/
+
     Cursor cursor;
+
 	
 	Sound music;
     SoundChannel musicChannel;
@@ -16,11 +19,15 @@ public class MyGame : Game
 	float vfxVolume; //doesn't control jump sound volume yet
 
 
-	public MyGame() : base(1920, 1080, false, false, -1, -1, true)
+	public MyGame() : base(1920, 1080, true, false, -1, -1, true)
 	{
         level = new Level();
 
         mainMenu = new MainMenu();
+
+/*        gameOverMenu = new GameOverMenu();*/
+        /*AddChild(gameOverMenu);
+*/
         AddChild(mainMenu);
 
         targetFps = 60;

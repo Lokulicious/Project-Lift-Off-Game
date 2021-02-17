@@ -1,4 +1,5 @@
 ﻿using GXPEngine;
+using GXPEngine.Core;
 using System.Collections;
 using System;
 
@@ -10,12 +11,20 @@ public class Wall : Sprite
 
     float moveSpeed;
 
+
+
+
+
     public Wall(Player player) : base("GrassWallRightSmall.png")
     {
         SetOrigin(width / 2, 0);
         moveSpeed = 3;
  
         this.player = player;
+
+
+        
+
     }
 
 
@@ -25,6 +34,7 @@ public class Wall : Sprite
         WallMovement();
 
         //y += 5; //test for wall reset
+
 
     }
 
