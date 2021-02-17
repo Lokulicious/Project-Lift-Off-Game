@@ -6,6 +6,15 @@ public class MyGame : Game
 {
 	Level level;
 	Cursor cursor;
+	
+	Sound music;
+    SoundChannel musicChannel;
+	SoundChannel vfx;
+
+    float musicVolume;
+	float vfxVolume;
+
+
 	public MyGame() : base(1920, 1080, true, false, -1, -1, true)
 	{
 		level = new Level();
@@ -14,6 +23,15 @@ public class MyGame : Game
 		cursor = new Cursor();
 		AddChild(cursor);
 		targetFps = 60;
+
+		music = new Sound("music_powerup.mp3", true, false);
+		music.Play(false, 0);
+
+        musicChannel = new SoundChannel(1);
+		vfx = new SoundChannel(2);
+
+        musicVolume = 0.2f;
+        vfxVolume = 0.2f;
     }
 
     void Update()
@@ -27,10 +45,20 @@ public class MyGame : Game
 			cursor = new Cursor();
 			AddChild(cursor);
 		}
+
+		MusicController();
 	}
 
 	static void Main()
 	{
 		new MyGame().Start();
 	}
+
+	void MusicController()
+    {
+        musicChannel.Volume = musicVolume;
+		vfx.Volume = vfxVolume;
+
+    }
+
 }

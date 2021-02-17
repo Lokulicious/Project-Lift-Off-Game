@@ -61,7 +61,11 @@ namespace GXPEngine
         bool mouseRight;
         int dashCooldown;
         int dashTimer;
-        
+
+
+        Sound jump;
+        SoundChannel vfx;
+
 
         public Player() : base("new_flip.png",21,1)
         {
@@ -76,8 +80,10 @@ namespace GXPEngine
             gravity = 1f;
             jumpForceMultiplier = 0.7f;
 
-
             dashForceMultiplier = 1.2f;
+
+            jump = new Sound("jump1.wav", false, false);
+            vfx = new SoundChannel(2);
 
         }
 
@@ -209,7 +215,7 @@ namespace GXPEngine
                 /*                jumpSpeedX = jumpAngle * jumpForceMultiplier;*/
 
                 isJumping = true;
-
+                jump.Play(false, 0);
             }
 
 
@@ -217,6 +223,7 @@ namespace GXPEngine
             if (isJumping)
             {
                 jumpSpeedY -= gravity;
+
             }
             if (isJumping == false)
             {
