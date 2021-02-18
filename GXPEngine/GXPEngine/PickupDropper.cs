@@ -13,17 +13,19 @@ namespace GXPEngine
         float frequency;
         int type;
         int endAfter;
-        int drops;
+        int drops=0;
         public PickupDropper(float frequency,int type, int endAfter ) : base( )
         {
             this.frequency = frequency;
             this.type = type;
             this.endAfter = endAfter;
+            timeOfLastDrop = Time.now;
         }
         public void Update()
         {
             if (!Done())
             {
+                Console.WriteLine("called");
                 dropPickups();
                 checkSafety();
             }
@@ -47,7 +49,7 @@ namespace GXPEngine
                 }
                 else if (type == 2)
                 {
-                    Pickup toAdd = new Dash(0);
+                    Pickup toAdd = new Shield(0);
                     AddChild(toAdd);
                     game.SetChildIndex(toAdd, game.GetChildren().Count);
                 }
@@ -57,6 +59,7 @@ namespace GXPEngine
                     AddChild(toAdd);
                     game.SetChildIndex(toAdd, game.GetChildren().Count);
                 }
+                drops++;
             }
         }
         public void checkSafety() //checks if last drop was less than a tenth of a second ago to avoid double dropping

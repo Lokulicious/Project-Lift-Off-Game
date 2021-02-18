@@ -55,9 +55,11 @@ namespace GXPEngine
         bool shieldParticleMade = false;
 
 
+
         public bool lost = false;
 
         int pickupTime = 0;
+        int levelStartTime = 0;
 
         float arrowRotation;
 
@@ -69,6 +71,13 @@ namespace GXPEngine
             wallLength = game.height + 50;
             wallPositionX = 452;
             shieldParticle = new ShieldParticle(player);
+            loadDroppers();
+            levelStartTime = Time.now;
+        }
+
+        int getLevelTime()
+        {
+            return Time.now - levelStartTime;
         }
 
         void GenerateLevel()
@@ -155,67 +164,43 @@ namespace GXPEngine
         }
 
 
-
+        void loadDroppers()
+        {
+            AddChild(new PickupDropper(10000, 0, 50));
+            AddChild(new PickupDropper(25000, 1, 50));
+            AddChild(new PickupDropper(32000, 2, 50));
+            AddChild(new PickupDropper(38000, 3, 50));
+        }
 
         void Update()
         {
-            Console.WriteLine(player.getHeightClimbed());
             switchBG();
             checkIfLost();
             DisplayHudItems();
             adjustDrawOrder();
             DisplayShieldParticle();
 
+            
 
-            if (player.getHeightClimbed() > 5 && !shieldMade)
+            
+            if (!firstDropperMade)
             {
-                toAdd = new Shield(0);
-                AddChild(toAdd);
-                foregroundObjects.Add(toAdd);
-                shieldMade = true;
-            }
-            if (player.getHeightClimbed() > 25 && !dashMade)
-            {
-                toAdd = new Dash(0);
-                AddChild(toAdd);
-                foregroundObjects.Add(toAdd);
-                dashMade = true;
-            }
-            if (player.getHeightClimbed() > 10 && !scoreBallMade)
-            {
-                AddChild(new ScoreBall(0));
-                scoreBallMade = true;
-            }
-            if (player.getHeightClimbed() > 15 && !scoreDoubleMade)
-            {
-                AddChild(new DoubleScore(0));
-                scoreDoubleMade = true;
-            }
-            if (player.getHeightClimbed() >= 15 && !firstDropperMade)
-            {
-                AddChild(new Dropper(3000, 4, player, false, false));
+                
                 firstDropperMade = true;
+                AddChild(new Dropper(4000, 6, 4, player, false, false));
             }
-            if (player.getHeightClimbed() >= 55 && !secondDropperMade)
+            if (getLevelTime() >= 24900 && getLevelTime() <= 25100 && !secondDropperMade)
             {
-                AddChild(new Dropper(3000, 2, player, true, false));
                 secondDropperMade = true;
+                AddChild(new Dropper(4000, 6, 4, player, false, false));
+                AddChild(new Dropper(8000, 3, 3, player, true, false));
             }
-            if (player.getHeightClimbed() >= 75)
-            {
+
+           
 
 
-                if (!thirdDropperMade)
-                {
-                    currentDropper = new Dropper(4000, 100, player, false, true);
-                    AddChild(currentDropper);
-                    thirdDropperMade = true;
-                }
 
-            }
             loopSpaceLevel();
-
-
 
             Arrow(player);
             score = player.checkScore()/10;
@@ -238,17 +223,17 @@ namespace GXPEngine
                     int chosenrocks = Choose();
                     if (chosenrocks == 1)
                     {
-                        currentDropper = new Dropper(4000, 6, player, true, false);
+                        currentDropper = new Dropper(4000, 6,5, player, true, false);
                         AddChild(currentDropper);
                     }
                     else if (chosenrocks == 2)
                     {
-                        currentDropper = new Dropper(4000, 6, player, false, false);
+                        currentDropper = new Dropper(4000, 6,5, player, false, false);
                         AddChild(currentDropper);
                     }
                     else if (chosenrocks == 3 || chosenrocks == 4)
                     {
-                        currentDropper = new Dropper(4000, 6, player, false, true);
+                        currentDropper = new Dropper(4000, 6,5, player, false, true);
                         AddChild(currentDropper);
                     }
                     firstLooper = false;
