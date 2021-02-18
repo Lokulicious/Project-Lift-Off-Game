@@ -6,7 +6,7 @@ namespace GXPEngine
 {
     public class Cursor : Sprite
     {
-        public Cursor() : base("player.png")
+        public Cursor() : base("cursor.png")
         {
 
         }

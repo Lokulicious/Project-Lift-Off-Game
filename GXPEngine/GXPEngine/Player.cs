@@ -15,6 +15,7 @@ namespace GXPEngine
         public bool isJumping = false;
         bool startFlip = false;
         GameObject[] collisions = new GameObject[0];
+        ShieldParticle sp;
 
         private int score;
 
@@ -132,7 +133,6 @@ namespace GXPEngine
             }
             else
                 dash = false;
-           
         }
 
 
@@ -413,6 +413,7 @@ namespace GXPEngine
                 }
                 else if (i is DroppedThing && noOfShields > 0)
                 {
+                    
                     ((DroppedThing)i).Break();
                     noOfShields--;
                 }
@@ -436,6 +437,7 @@ namespace GXPEngine
                 {
                     if (noOfShields < 3)
                     {
+                        
                         i.LateDestroy();
                         noOfShields ++;
                         shieldPickup = new Sound("shield.wav");
@@ -514,6 +516,7 @@ namespace GXPEngine
         {
             return noOfDashes;
         }
+       
 
     }
 }

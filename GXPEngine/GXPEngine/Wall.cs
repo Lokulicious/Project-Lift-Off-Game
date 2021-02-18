@@ -58,11 +58,11 @@ public class Wall : AnimationSprite
         {
             stage = 1;
         }
-        else if (currentHeight < 187)
+        else if (currentHeight < 190)
         {
             stage = 2;
         }
-        else if (currentHeight >= 187)
+        else if (currentHeight >= 190)
         {
             stage = 3;
         }

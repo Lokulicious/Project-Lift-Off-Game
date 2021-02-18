@@ -12,20 +12,25 @@ namespace GXPEngine
         private Player _player;
         float frequency;
         int endAfter;
-        int drops = 0;
+        int drops = 1;
         bool safety = false;
         bool bigRocks;
         int currentheight;
+        bool doubleDrop;
+        bool current = false;
         GameObject toAdd = new Pivot();
-        public Dropper(float frequency, int endAfter, Player player, bool bigRocks)
+        public Dropper(float frequency, int endAfter, Player player, bool bigRocks,bool doubledropper)
         {
             this.frequency = frequency;
             this.endAfter = endAfter;
             this.bigRocks = bigRocks;
             timeOfLastDrop = Time.now;
             _player = player;
-            
-            
+            doubleDrop = doubledropper;
+        }
+        public Dropper()
+        {
+            current = true;
         }
         public void Update()
         {
@@ -43,7 +48,43 @@ namespace GXPEngine
 
             if (TimeToDrop() && !safety)
             {
-                if (bigRocks && currentheight < 113)
+                if(doubleDrop && currentheight < 113 && drops % 2 != 0)
+                {
+                    toAdd = new DroppedThing(5, GetFallLane(), _player, "MRBbreak.png");
+                    AddChild(toAdd);
+                    game.SetChildIndex(toAdd, game.GetChildren().Count);
+                }
+                else if (doubleDrop && currentheight < 113 && drops % 2 == 0)
+                {
+                    toAdd = new DroppedThing(5, GetFallLane(), _player, "MRSbreak.png");
+                    AddChild(toAdd);
+                    game.SetChildIndex(toAdd, game.GetChildren().Count);
+                }
+                else if (doubleDrop && currentheight < 187 && drops % 2 != 0)
+                {
+                    toAdd = new DroppedThing(5, GetFallLane(), _player, "CRBbreak.png");
+                    AddChild(toAdd);
+                    game.SetChildIndex(toAdd, game.GetChildren().Count);
+                }
+                else if (doubleDrop && currentheight < 187 && drops % 2 == 0)
+                {
+                    toAdd = new DroppedThing(5, GetFallLane(), _player, "CRSbreak.png");
+                    AddChild(toAdd);
+                    game.SetChildIndex(toAdd, game.GetChildren().Count);
+                }
+                else if (doubleDrop && currentheight >= 187 && drops % 2 != 0)
+                {
+                    toAdd = new DroppedThing(5, GetFallLane(), _player, "SRBbreak.png");
+                    AddChild(toAdd);
+                    game.SetChildIndex(toAdd, game.GetChildren().Count);
+                }
+                else if (doubleDrop && currentheight >= 187 && drops % 2 == 0)
+                {
+                    toAdd = new DroppedThing(5, GetFallLane(), _player, "SRSbreak.png");
+                    AddChild(toAdd);
+                    game.SetChildIndex(toAdd, game.GetChildren().Count);
+                }
+                else if (bigRocks && currentheight < 113)
                 {
                     toAdd = new DroppedThing(5, GetFallLane(), _player, "MRBbreak.png");
                     AddChild(toAdd);
@@ -56,13 +97,13 @@ namespace GXPEngine
                     AddChild(toAdd);
                     game.SetChildIndex(toAdd, game.GetChildren().Count);
                 }
-                else if (bigRocks && currentheight < 113)
+                else if (bigRocks && currentheight < 187)
                 {
                     toAdd = new DroppedThing(5, GetFallLane(), _player, "CRBbreak.png");
                     AddChild(toAdd);
                     game.SetChildIndex(toAdd, game.GetChildren().Count);
                 }
-                else if (!bigRocks && currentheight < 113)
+                else if (!bigRocks && currentheight < 187)
                 {
                     toAdd = new DroppedThing(5, GetFallLane(), _player, "CRSbreak.png");
                     AddChild(toAdd);
@@ -126,7 +167,11 @@ namespace GXPEngine
         }
         public bool Done()
         {
-            if (drops > endAfter)
+            if (current)
+            {
+                return false;
+            }
+            else if (drops-1 >= endAfter)
             {
                 return true;
             }

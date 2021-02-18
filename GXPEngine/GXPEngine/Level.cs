@@ -17,6 +17,8 @@ namespace GXPEngine
         List<Background> loopStars = new List<Background>();
         List<GameObject> foregroundObjects = new List<GameObject>();
 
+        Dropper currentDropper = new Dropper();
+
         GameObject toAdd = new Pivot();
 
         HUD shieldhud = new HUD("No shield", 550, 75,64);
@@ -30,6 +32,7 @@ namespace GXPEngine
         Wall wallLeft;
         Wall wallRight;
 
+        Cursor cursor;
 
         Arrow arrow;
         ShieldParticle shieldParticle;
@@ -46,16 +49,17 @@ namespace GXPEngine
         bool scoreBallMade = false;
         bool scoreDoubleMade = false;
         bool dashMade = false;
+        bool loopedPickupMade = true;
+        bool firstLooper = false;
+        bool canset = false;
+        bool shieldParticleMade = false;
 
 
         public bool lost = false;
-        int dropperTimer;
-        bool dropperTimed = false;
+
+        int pickupTime = 0;
 
         float arrowRotation;
-
-
-        bool shieldParticleMade = false;
 
         public int score;
         
@@ -64,6 +68,7 @@ namespace GXPEngine
             GenerateLevel();
             wallLength = game.height + 50;
             wallPositionX = 452;
+            shieldParticle = new ShieldParticle(player);
         }
 
         void GenerateLevel()
@@ -112,10 +117,10 @@ namespace GXPEngine
                 AddChild(wallRight);
             }
 
+            cursor = new Cursor();
+            AddChild(cursor);
 
             AddChild(player);
-
-
 
             AddChild(shieldhud);
             AddChild(scorehud);
@@ -159,68 +164,134 @@ namespace GXPEngine
             checkIfLost();
             DisplayHudItems();
             adjustDrawOrder();
+            DisplayShieldParticle();
 
 
             if (player.getHeightClimbed() > 5 && !shieldMade)
             {
-                toAdd = new Shield(game.width / 2);
+                toAdd = new Shield(0);
                 AddChild(toAdd);
                 foregroundObjects.Add(toAdd);
                 shieldMade = true;
             }
             if (player.getHeightClimbed() > 25 && !dashMade)
             {
-                toAdd = new Dash(game.width / 2);
+                toAdd = new Dash(0);
                 AddChild(toAdd);
                 foregroundObjects.Add(toAdd);
                 dashMade = true;
             }
             if (player.getHeightClimbed() > 10 && !scoreBallMade)
             {
-                AddChild(new ScoreBall(game.width / 2));
+                AddChild(new ScoreBall(0));
                 scoreBallMade = true;
             }
             if (player.getHeightClimbed() > 15 && !scoreDoubleMade)
             {
-                AddChild(new DoubleScore(game.width / 2));
+                AddChild(new DoubleScore(0));
                 scoreDoubleMade = true;
             }
             if (player.getHeightClimbed() >= 15 && !firstDropperMade)
             {
-                AddChild(new Dropper(3000, 4, player, false));
+                AddChild(new Dropper(3000, 4, player, false, false));
                 firstDropperMade = true;
             }
             if (player.getHeightClimbed() >= 55 && !secondDropperMade)
             {
-                AddChild(new Dropper(3000, 2, player, true));
+                AddChild(new Dropper(3000, 2, player, true, false));
                 secondDropperMade = true;
             }
             if (player.getHeightClimbed() >= 75)
             {
-                if (!dropperTimed)
-                {
-                    dropperTimer = Time.now;
-                    dropperTimed = true;
-                }
+
 
                 if (!thirdDropperMade)
                 {
-                    AddChild(new Dropper(4000, 100, player, false));
+                    currentDropper = new Dropper(4000, 100, player, false, true);
+                    AddChild(currentDropper);
                     thirdDropperMade = true;
                 }
-                if (!fourthDropperMade && Time.now - dropperTimer >= 2000)
-                {
-                    AddChild(new Dropper(4000, 100, player, true));
-                    fourthDropperMade = true;
-                }
+
             }
+            loopSpaceLevel();
+
+
 
             Arrow(player);
-            DisplayShieldParticle();
-
-
-
             score = player.checkScore()/10;
+        }
+       
+        
+        public void loopSpaceLevel()
+        {
+            if(player.getHeightClimbed()> 0)
+            {
+                if (currentDropper.Done() && canset)
+                {
+                    loopedPickupMade = false;
+                    pickupTime = Time.now;
+                    canset = false;
+                }
+                else if (firstLooper || (currentDropper.Done()  && Time.now - pickupTime > 5000))
+                {
+                    canset = true;
+                    int chosenrocks = Choose();
+                    if (chosenrocks == 1)
+                    {
+                        currentDropper = new Dropper(4000, 6, player, true, false);
+                        AddChild(currentDropper);
+                    }
+                    else if (chosenrocks == 2)
+                    {
+                        currentDropper = new Dropper(4000, 6, player, false, false);
+                        AddChild(currentDropper);
+                    }
+                    else if (chosenrocks == 3 || chosenrocks == 4)
+                    {
+                        currentDropper = new Dropper(4000, 6, player, false, true);
+                        AddChild(currentDropper);
+                    }
+                    firstLooper = false;
+                }
+
+                else if (!loopedPickupMade)
+                {
+                    int chosenPickup = Choose();
+                    if (chosenPickup == 1)
+                    {
+                        Pickup toAdd = new Shield(225);
+                        AddChild(toAdd);
+                        game.SetChildIndex(toAdd, game.GetChildren().Count - 1);
+                    }
+                    else if (chosenPickup == 2)
+                    {
+                        Pickup toAdd = new ScoreBall(225);
+                        AddChild(toAdd);
+                        game.SetChildIndex(toAdd, game.GetChildren().Count - 1);
+                    }
+                    else if (chosenPickup == 3)
+                    {
+                        Pickup toAdd = new Dash(225);
+                        AddChild(toAdd);
+                        game.SetChildIndex(toAdd, game.GetChildren().Count - 1);
+                    }
+                    else if (chosenPickup == 4)
+                    {
+                        Pickup toAdd = new DoubleScore(225);
+                        AddChild(toAdd);
+                        game.SetChildIndex(toAdd, game.GetChildren().Count - 1);
+                    }
+                    loopedPickupMade = true;
+                    Console.WriteLine("pickupmade");
+                }
+                
+            }
+        }
+        public int Choose()
+        {
+            Random rando = new Random();
+            int selection = rando.Next(1, 5);
+            return selection;
         }
 
         void switchBG()
@@ -261,7 +332,7 @@ namespace GXPEngine
             {
                 loopPlanet.Add(new Background("space_3.png", 4, true, 1));
                 AddChild(loopPlanet[loopPlanet.Count - 1]);
-                game.SetChildIndex(loopPlanet[loopPlanet.Count - 1], 2);
+                game.SetChildIndex(loopPlanet[loopPlanet.Count - 1], 4);
                 backgrounds[8].looped = true;
             }
 
@@ -272,18 +343,16 @@ namespace GXPEngine
                     
                     loopPlanet.Add(new Background("space_3.png", 4, true, 1));
                     AddChild(loopPlanet[loopPlanet.Count - 1]);
-                    game.SetChildIndex(loopPlanet[loopPlanet.Count - 1], 2);
+                    game.SetChildIndex(loopPlanet[loopPlanet.Count - 1], 4);
 
                 }
             }
-
-
 
             if (backgrounds[7].reachedEnd() && !backgrounds[7].looped)
             {
                 loopDust.Add(new Background("space_2.png", 2, true, 1));
                 AddChild(loopDust[loopDust.Count - 1]);
-                game.SetChildIndex(loopDust[loopDust.Count - 1], 1);
+                game.SetChildIndex(loopDust[loopDust.Count - 1], 2);
                 backgrounds[7].looped = true;
             }
 
@@ -294,7 +363,7 @@ namespace GXPEngine
 
                     loopDust.Add(new Background("space_2.png", 2, true, 1));
                     AddChild(loopDust[loopDust.Count - 1]);
-                    game.SetChildIndex(loopDust[loopDust.Count - 1], 1);
+                    game.SetChildIndex(loopDust[loopDust.Count - 1], 2);
 
                 }
             }
@@ -319,18 +388,13 @@ namespace GXPEngine
 
                 }
             }
-
-
-
-
-
-
         }
 
         void adjustDrawOrder()
         {
             game.SetChildIndex(player, game.GetChildren().Count);
             game.SetChildIndex(arrow, game.GetChildren().Count);
+            game.SetChildIndex(cursor, GetChildren().Count - 1);
         }
         public void DisplayHudItems()
         {
@@ -341,17 +405,6 @@ namespace GXPEngine
 
             dashhud.updateMessage(" : " + player.getDashes());
         }
-
-        void DisplayShieldParticle()
-        {
-            if (player.HasShield() && !shieldParticleMade)
-            {
-                shieldParticle = new ShieldParticle(player);
-                AddChild(shieldParticle);
-                shieldParticleMade = true;
-            }
-        }
-
 
         public void checkIfLost()
         {
@@ -408,6 +461,22 @@ namespace GXPEngine
             }
 
             arrow.rotation = arrowRotation;
+        }
+
+        void DisplayShieldParticle()
+        {
+            if (player.HasShield() && !shieldParticleMade)
+            {
+                shieldParticle = new ShieldParticle(player);
+                AddChild(shieldParticle);
+                shieldParticleMade = true;
+            }
+            else if (!player.HasShield())
+            {
+                shieldParticle.Destroy();
+                shieldParticleMade = false;
+            }
+           
         }
 
 

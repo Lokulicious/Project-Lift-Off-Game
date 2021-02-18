@@ -9,10 +9,10 @@ namespace GXPEngine
     class Pickup : Sprite
     {
         private bool destroyed =false;
-        public Pickup(string filename, int xPos) : base(filename)
+        public Pickup(string filename, int yPos) : base(filename)
         {
             x = GetFallLane();
-            y = 0 - height;
+            y = (0 - height)-yPos;
         }
 
         public void Update()
