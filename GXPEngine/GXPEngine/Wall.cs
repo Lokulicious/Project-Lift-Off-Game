@@ -54,15 +54,15 @@ public class Wall : AnimationSprite
         currentHeight = player.getHeightClimbed();
 
 
-        if (currentHeight < 113)
+        if (currentHeight < 115)
         {
             stage = 1;
         }
-        else if (currentHeight < 153)
+        else if (currentHeight < 155)
         {
             stage = 2;
         }
-        else if (currentHeight >= 153)
+        else if (currentHeight >= 155)
         {
             stage = 3;
         }

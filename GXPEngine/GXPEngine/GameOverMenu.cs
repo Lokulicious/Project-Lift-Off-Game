@@ -8,7 +8,7 @@ namespace GXPEngine
 {
     class GameOverMenu : GameObject
     {
-
+        private Player player;
         private Level _level;
 
         HighScoreText highScoreText = new HighScoreText(350);
@@ -74,7 +74,7 @@ namespace GXPEngine
             {
                 for (int y = 0; y < 10; y++)
                 {
-                    FilledWall filledwall = new FilledWall();
+                    FilledWall filledwall = new FilledWall(player);
                     filledwall.x = x * filledwall.width;
                     filledwall.y = y * filledwall.height - 50;
                     AddChild(filledwall);

@@ -25,7 +25,7 @@ using GXPEngine;
     public MainMenu()
     {
         GenerateEnvironment();
-        AddChild(menuPlayer);
+        //AddChild(menuPlayer);
         AddChild(menuOverlay);
         startTextShadow = new StartTextShadow(_player);
         /*AddChild(startTextShadow);*/
@@ -49,7 +49,7 @@ using GXPEngine;
         {
             for (int y = 0; y < 9; y++)
             {
-                FilledWall filledwall = new FilledWall();
+                FilledWall filledwall = new FilledWall(_player);
                 filledwall.x = x * filledwall.width;
                 filledwall.y = y * filledwall.height - 50;
                 AddChild(filledwall);
@@ -60,7 +60,7 @@ using GXPEngine;
         {
             for (int y = 0; y < 9; y++)
             {
-                FilledWall filledwall = new FilledWall();
+                FilledWall filledwall = new FilledWall(_player);
                 filledwall.x = game.width - x * filledwall.width - 50;
                 filledwall.y = y * filledwall.height - 50;
                 AddChild(filledwall);

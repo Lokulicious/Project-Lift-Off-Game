@@ -81,9 +81,9 @@ public class MyGame : Game
         startGame();
         getScore();
 
-        /*Console.WriteLine(score);
-*/
-
+        //Console.WriteLine(score);
+        Console.WriteLine(currentFps);
+        targetFps = 30;
     }
 
 
