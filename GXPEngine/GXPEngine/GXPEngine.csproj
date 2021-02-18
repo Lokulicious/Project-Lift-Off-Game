@@ -107,6 +107,7 @@
     <Compile Include="GXPEngine\SoLoud\Soloud.cs" />
     <Compile Include="GXPEngine\SoLoud\SoloudSoundSystem.cs" />
     <Compile Include="NudinoLogo.cs" />
+    <Compile Include="PickupDropper.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="ScoreBall.cs" />
     <Compile Include="ShieldParticle.cs" />
