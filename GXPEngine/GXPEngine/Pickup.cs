@@ -11,7 +11,7 @@ namespace GXPEngine
         private bool destroyed =false;
         public Pickup(string filename, int xPos) : base(filename)
         {
-            x = xPos;
+            x = GetFallLane();
             y = 0 - height;
         }
 
@@ -37,6 +37,22 @@ namespace GXPEngine
         public bool Destroyed()
         {
             return destroyed;
+        }
+        public int GetFallLane()
+        {
+            Random rando = new Random();
+            int selection = rando.Next(1, 5);
+
+            switch (selection)
+            {
+
+                case 1: return 700;
+                case 2: return 800;
+                case 3: return 900;
+                case 4: return 1000;
+
+            }
+            return 0;
         }
 
     }

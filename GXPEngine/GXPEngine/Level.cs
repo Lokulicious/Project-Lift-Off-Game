@@ -133,9 +133,9 @@ namespace GXPEngine
             backgrounds[1] = new Background("mountain_art_2.png", -1500,1f,true,1);
             backgrounds[2] = new Background("mountain_art_1.png", -1100, 2,true,1);
 
-            backgrounds[3] = new Background("cave_3.png", -1100, 1f,false,0);
-            backgrounds[4] = new Background("cave_2.png", -1100, 1.20f, false,0);
-            backgrounds[5] = new Background("cave_1.png", -1100,  1.40f, false,0);
+            backgrounds[3] = new Background("cave_3.png", -1100, 0.5f,false,0);
+            backgrounds[4] = new Background("cave_2.png", -1100, 0.6f, false,0);
+            backgrounds[5] = new Background("cave_1.png", -1100,  0.7f, false,0);
 
             backgrounds[6] = new Background("space_1.png", -1100,  0.5f, false,0);
             backgrounds[7] = new Background("space_2.png", -1100,  2, false, 0);
@@ -154,7 +154,7 @@ namespace GXPEngine
 
         void Update()
         {
-            //Console.WriteLine(player.getHeightClimbed());
+            Console.WriteLine(player.getHeightClimbed());
             switchBG();
             checkIfLost();
             DisplayHudItems();

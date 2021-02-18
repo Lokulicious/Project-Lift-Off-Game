@@ -80,9 +80,6 @@ public class MyGame : Game
         MusicController();
         startGame();
         getScore();
-
-        //Console.WriteLine(score);
-        Console.WriteLine(currentFps);
         targetFps = 30;
     }
 

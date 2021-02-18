@@ -43,38 +43,38 @@ namespace GXPEngine
 
             if (TimeToDrop() && !safety)
             {
-                if (bigRocks && currentheight < 110)
+                if (bigRocks && currentheight < 113)
                 {
                     toAdd = new DroppedThing(5, GetFallLane(), _player, "MRBbreak.png");
                     AddChild(toAdd);
                     game.SetChildIndex(toAdd, game.GetChildren().Count);
                 }
 
-                else if (!bigRocks && currentheight < 110)
+                else if (!bigRocks && currentheight < 113)
                 {
                     toAdd = new DroppedThing(5, GetFallLane(), _player, "MRSbreak.png");
                     AddChild(toAdd);
                     game.SetChildIndex(toAdd, game.GetChildren().Count);
                 }
-                else if (bigRocks && currentheight < 150)
+                else if (bigRocks && currentheight < 113)
                 {
                     toAdd = new DroppedThing(5, GetFallLane(), _player, "CRBbreak.png");
                     AddChild(toAdd);
                     game.SetChildIndex(toAdd, game.GetChildren().Count);
                 }
-                else if (!bigRocks && currentheight < 150)
+                else if (!bigRocks && currentheight < 113)
                 {
                     toAdd = new DroppedThing(5, GetFallLane(), _player, "CRSbreak.png");
                     AddChild(toAdd);
                     game.SetChildIndex(toAdd, game.GetChildren().Count);
                 }
-                else if (bigRocks && currentheight >= 150)
+                else if (bigRocks && currentheight >= 187)
                 {
                     toAdd = new DroppedThing(5, GetFallLane(), _player, "SRBbreak.png");
                     AddChild(toAdd);
                     game.SetChildIndex(toAdd, game.GetChildren().Count);
                 }
-                else if (!bigRocks && currentheight >= 150)
+                else if (!bigRocks && currentheight >= 187)
                 {
                     toAdd = new DroppedThing(5, GetFallLane(), _player, "SRSbreak.png");
                     AddChild(toAdd);
