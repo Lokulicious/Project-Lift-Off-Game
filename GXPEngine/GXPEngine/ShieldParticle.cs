@@ -12,12 +12,13 @@ namespace GXPEngine
         {
             this.player = player;
             SetOrigin(width / 2, height / 2);
+            
         }
 
         void Update()
         {
             this.x = player.x;
-            this.y = player.y - 20;
+            this.y = player.y - 30;
 
             SetCycle(1, 8);
             Animate();

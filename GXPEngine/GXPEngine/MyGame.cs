@@ -51,6 +51,7 @@ public class MyGame : Game
     void Update()
 	{
         children = level.GetChildren();
+        
         if (level.Lost())
         {
             gameOverMenu = new GameOverMenu(score, level, true);
@@ -60,11 +61,9 @@ public class MyGame : Game
             }
 
             AddChild(gameOverMenu);   
-            cursor = new Cursor();
-            AddChild(cursor);
+            
             level.lost = false;
         }
-
         if (gameOverMenu.Restart())
         {
             gameOverMenu.Destroy();
@@ -74,13 +73,11 @@ public class MyGame : Game
 
 
         }
-
-
-
         MusicController();
         startGame();
         getScore();
         targetFps = 30;
+        
     }
 
 

@@ -7,7 +7,7 @@ namespace GXPEngine
 {
     class Shield : Pickup
     {
-        public Shield(int xPos) : base("shield_big.png",xPos)
+        public Shield(int yPos) : base("shield_big.png",yPos)
         {
           
         }
