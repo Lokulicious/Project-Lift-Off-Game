@@ -12,7 +12,7 @@ public class Wall : AnimationSprite
     float moveSpeed;
 
     int stage;
-
+    int currentHeight;
 
 
     public Wall(Player player, int stage) : base("wall_tiles.png", 3, 1)
@@ -49,6 +49,24 @@ public class Wall : AnimationSprite
                 SetFrame(2);
                 break;
         }
+
+
+        currentHeight = player.getHeightClimbed();
+
+
+        if (currentHeight < 113)
+        {
+            stage = 1;
+        }
+        else if (currentHeight < 153)
+        {
+            stage = 2;
+        }
+        else if (currentHeight >= 153)
+        {
+            stage = 3;
+        }
+
     }
 
 

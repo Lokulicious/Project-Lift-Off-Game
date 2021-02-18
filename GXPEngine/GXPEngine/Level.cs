@@ -27,6 +27,8 @@ namespace GXPEngine
         HUD dashhud = new HUD("Dashes Available: 0", 550, 350,64);
         HUDimage dashHudImg = new HUDimage("dashIcon.png", 300,250);
 
+        Wall wallLeft;
+        Wall wallRight;
 
 
         Arrow arrow;
@@ -95,7 +97,7 @@ namespace GXPEngine
 
             for (y = 0; y < 18; y++)
             {
-                Wall wallLeft = new Wall(player, 1);
+                wallLeft = new Wall(player, 1);
                 wallLeft.y = y * wallLeft.height - wallStartPositionY;
                 wallLeft.x = wallPositionX;
                 wallLeft.scaleX = -1;
@@ -104,7 +106,7 @@ namespace GXPEngine
             
             for (y = 0; y < 18; y++)
             {
-                Wall wallRight = new Wall(player, 1);
+                wallRight = new Wall(player, 1);
                 wallRight.y = y * wallRight.height - wallStartPositionY;
                 wallRight.x = game.width - wallPositionX;
                 AddChild(wallRight);
@@ -146,6 +148,7 @@ namespace GXPEngine
                 AddChild(b);
             }
         }
+
 
 
 

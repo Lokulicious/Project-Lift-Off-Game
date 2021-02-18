@@ -9,7 +9,7 @@ namespace GXPEngine
     class GameOverMenu : GameObject
     {
 
-
+        private Level _level;
 
         HighScoreText highScoreText = new HighScoreText(350);
         YourScoreText yourScoreText = new YourScoreText(450, 200);
@@ -20,13 +20,16 @@ namespace GXPEngine
         HUD scorehud;
 
         int _score = 10;
+        public bool _gameOver = false;
 
-        public GameOverMenu(int score)
+
+        public GameOverMenu(int score, Level level, bool gameOver)
         {
             scorehud = new HUD("0", (game.width / 2) + 150, (game.height / 2) - 155, 72);
 
-
+            _level = level;
             _score = score;
+            _gameOver = gameOver;
 
             GenerateBackground();
 
@@ -42,7 +45,6 @@ namespace GXPEngine
                 string filename = "hs" + (i + 1) + ".png";
 
                 float posY = 60 - i * 100;
-                /*float posY = i * 100;*/
                 highScores[i] = new HighScores(posY, filename);
                 AddChild(highScores[i]);
             }
@@ -57,14 +59,13 @@ namespace GXPEngine
         {
             SetScore();
             Restart();
-/*            Console.WriteLine(_score);*/
+
         }
 
 
         void SetScore()
         {
             scorehud.updateMessage(""+_score);
-            Console.WriteLine(scorehud);
         }
 
         void GenerateBackground()
@@ -84,7 +85,7 @@ namespace GXPEngine
 
         public bool Restart()
         {
-            if (Input.GetKeyDown(Key.SPACE))
+            if (Input.GetKeyDown(Key.SPACE) && _gameOver)
             {
                 return true;
             }

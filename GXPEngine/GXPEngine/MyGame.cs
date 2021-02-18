@@ -27,12 +27,12 @@ public class MyGame : Game
 
         mainMenu = new MainMenu();
 
-        gameOverMenu = new GameOverMenu(score);
+        gameOverMenu = new GameOverMenu(score, level, false);
         /*AddChild(gameOverMenu);*/
 
         AddChild(mainMenu);
 
-        targetFps = 60;
+        targetFps = 30;
 
 
         music = new Sound("music_powerup.mp3", true, false);
@@ -51,11 +51,11 @@ public class MyGame : Game
 	{
         if (level.Lost())
         {
-
+            gameOverMenu = new GameOverMenu(score, level, true);
             level.Destroy();
             cursor.Destroy();
 
-            gameOverMenu = new GameOverMenu(score);
+
             AddChild(gameOverMenu);
 
             /*            level = new Level();
@@ -71,6 +71,8 @@ public class MyGame : Game
 
             mainMenu = new MainMenu();
             AddChild(mainMenu);
+
+
         }
 
 
