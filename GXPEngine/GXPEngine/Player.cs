@@ -64,6 +64,10 @@ namespace GXPEngine
 
 
         Sound jump;
+        Sound shieldPickup;
+        Sound scorePickup;
+        Sound dashPickup;
+
         SoundChannel vfx;
 
 
@@ -163,7 +167,7 @@ namespace GXPEngine
 
         void Jump()
         {
-            if (Input.GetMouseButtonDown(0) && isJumping == false)
+            if (Input.GetMouseButtonDown(0) && !isJumping)
             {
                 if (jumpAngle > 0 && !rightSide)
                 {
@@ -227,7 +231,7 @@ namespace GXPEngine
                 jumpSpeedY -= gravity;
 
             }
-            if (isJumping == false)
+            if (!isJumping)
             {
                 jumpSpeedX = 0f;
                 jumpSpeedY = 0f;
@@ -248,7 +252,7 @@ namespace GXPEngine
             if (y < 0)
             {
                 y = 0;
-            }
+            }   
 
         }
 
@@ -434,18 +438,24 @@ namespace GXPEngine
                     {
                         i.LateDestroy();
                         noOfShields ++;
+                        shieldPickup = new Sound("shield.wav");
+                        shieldPickup.Play();
                     }
                 }
                 else if (i is ScoreBall)
                 {
                     i.LateDestroy();
                     score += 500;
+                    scorePickup = new Sound("points.wav");
+                    scorePickup.Play();
                 }
                 else if(i is DoubleScore)
                 {
                     i.LateDestroy();
                     hasDoubleScore = true;
                     startDoubleScore = Time.now;
+                    scorePickup = new Sound("points.wav");
+                    scorePickup.Play();
                 }
                 else if(i is Dash)
                 {
@@ -453,6 +463,8 @@ namespace GXPEngine
                     {
                         i.LateDestroy();
                         noOfDashes += 2;
+                        dashPickup = new Sound("dash.wav");
+                        dashPickup.Play();
                     }
                 }
                 else if(i is Wall && dashStart)

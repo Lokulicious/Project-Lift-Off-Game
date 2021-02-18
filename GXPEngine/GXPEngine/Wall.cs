@@ -54,7 +54,7 @@ public class Wall : AnimationSprite
         currentHeight = player.getHeightClimbed();
 
 
-        if (currentHeight < 113)
+        if (currentHeight < 117)
         {
             stage = 1;
         }
@@ -122,6 +122,24 @@ public class Wall : AnimationSprite
                 player.rightSide = false;
             }
         }
+
+        if (other is MenuPlayer)
+        {
+            //Console.WriteLine("wall collison");
+            MenuPlayer menuPlayer = other as MenuPlayer;
+            menuPlayer.isTouchingWall = true;
+            menuPlayer.isJumping = false;
+            if (menuPlayer.x > game.width / 2)
+            {
+                menuPlayer.rightSide = true;
+            }
+            else if (menuPlayer.x < game.width / 2)
+            {
+                menuPlayer.rightSide = false;
+            }
+        }
+
+
     }
 
 

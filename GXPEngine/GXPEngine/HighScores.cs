@@ -14,6 +14,8 @@ namespace GXPEngine
 
             this.x = game.width / 2;
             this.y = (game.height / 2) - posY;
+
+            scale = scale / 2;
         }
 
     }

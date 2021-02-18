@@ -17,6 +17,8 @@ namespace GXPEngine
 
         int brokenTime;
 
+        Sound breakSound;
+
         
 
         public DroppedThing(float fallspeed, int xPos, Player player, string filename) : base(filename, 5, 1)
@@ -48,6 +50,9 @@ namespace GXPEngine
         public void Break()
         {
             broken = true;
+
+            breakSound = new Sound("destroy.mp3");
+            breakSound.Play();
             SetCycle(1, 5);
             brokenTime = Time.now;
         }
