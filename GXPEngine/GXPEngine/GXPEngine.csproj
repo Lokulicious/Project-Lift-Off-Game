@@ -56,6 +56,7 @@
     <Compile Include="Dropper.cs" />
     <Compile Include="Dust.cs" />
     <Compile Include="FilledWall.cs" />
+    <Compile Include="GameData.cs" />
     <Compile Include="GameOverMenu.cs" />
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />
     <Compile Include="GXPEngine\AddOns\TiledLoader.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="NudinoLogo.cs" />
     <Compile Include="PickupDropper.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="SaveHighscore.cs" />
     <Compile Include="ScoreBall.cs" />
     <Compile Include="ShieldParticle.cs" />
     <Compile Include="Shield.cs" />

@@ -41,15 +41,15 @@ namespace GXPEngine
             currentHeight = player.getHeightClimbed();
 
 
-            if (currentHeight < 115)
+            if (currentHeight < 117)
             {
                 stage = 1;
             }
-            else if (currentHeight < 155)
+            else if (currentHeight < 187)
             {
                 stage = 2;
             }
-            else if (currentHeight >= 155)
+            else if (currentHeight >= 187)
             {
                 stage = 3;
             }

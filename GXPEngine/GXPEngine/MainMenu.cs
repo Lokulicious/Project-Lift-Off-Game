@@ -88,6 +88,8 @@ using GXPEngine;
         }
 
 
+/*        AddChild(menuPlayer);*/
+
     }
 
 

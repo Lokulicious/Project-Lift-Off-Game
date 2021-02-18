@@ -12,11 +12,11 @@ namespace GXPEngine
         private Level _level;
 
         HighScoreText highScoreText = new HighScoreText(350);
-        YourScoreText yourScoreText = new YourScoreText(450, 200);
-        HighScores[] highScores = new HighScores[4];
+        YourScoreText yourScoreText = new YourScoreText(0, 200);
+        /*HighScores[] highScores = new HighScores[4];*/
         PlayerIcon playerIcon = new PlayerIcon(200);
 
-
+        
         HUD scorehud;
 
         int _score = 10;
@@ -25,7 +25,7 @@ namespace GXPEngine
 
         public GameOverMenu(int score, Level level, bool gameOver)
         {
-            scorehud = new HUD("0", (game.width / 2) + 150, (game.height / 2) - 155, 72);
+            scorehud = new HUD("0", (game.width / 2) + 130, (game.height / 2), 72);
 
             _level = level;
             _score = score;
@@ -34,23 +34,24 @@ namespace GXPEngine
             GenerateBackground();
 
 
-            AddChild(highScoreText);
+/*            AddChild(highScoreText);*/
             AddChild(yourScoreText);
 /*
             highScores[1] = new HighScores(100, "hs1.png");
             AddChild(highScores[1]);*/
 
-            for (int i = 0; i < highScores.Length; i++)
+/*            for (int i = 0; i < highScores.Length; i++)
             {
                 string filename = "hs" + (i + 1) + ".png";
 
-                float posY = 60 - i * 100;
+                float posY = 40 - i * 60;
                 highScores[i] = new HighScores(posY, filename);
                 AddChild(highScores[i]);
-            }
+            }*/
 
             AddChild(playerIcon);
             AddChild(scorehud);
+
 
         }
 
