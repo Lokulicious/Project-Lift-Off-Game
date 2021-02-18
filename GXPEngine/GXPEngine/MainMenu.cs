@@ -9,7 +9,8 @@ using GXPEngine;
     {
 
 
-    Player menuPlayer = new Player();
+    Player _player = new Player();
+    MenuPlayer menuPlayer = new MenuPlayer();
     Background menuBG = new Background("bg_big.png", -20, 0, false, 1);
     StartText startText = new StartText(-15);
     StartTextShadow startTextShadow;
@@ -26,7 +27,7 @@ using GXPEngine;
         GenerateEnvironment();
         AddChild(menuPlayer);
         AddChild(menuOverlay);
-        startTextShadow = new StartTextShadow(menuPlayer);
+        startTextShadow = new StartTextShadow(_player);
         /*AddChild(startTextShadow);*/
         AddChild(startText);
         AddChild(nudinoLogo);
@@ -70,7 +71,7 @@ using GXPEngine;
         //Generate Walls
         for (y = 0; y < 18; y++)
         {
-            Wall wallLeft = new Wall(menuPlayer);
+            Wall wallLeft = new Wall(_player, 1);
             wallLeft.y = y * wallLeft.height - wallStartPositionY;
             wallLeft.x = wallPositionX;
             wallLeft.scaleX = -1;
@@ -79,7 +80,7 @@ using GXPEngine;
 
         for (y = 0; y < 18; y++)
         {
-            Wall wallRight = new Wall(menuPlayer);
+            Wall wallRight = new Wall(_player, 1);
             wallRight.y = y * wallRight.height - wallStartPositionY;
             wallRight.x = game.width - wallPositionX;
             AddChild(wallRight);

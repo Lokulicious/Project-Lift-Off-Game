@@ -4,27 +4,26 @@ using System.Collections;
 using System;
 
 
-public class Wall : Sprite
+public class Wall : AnimationSprite
 {
 
     private Player player;
 
     float moveSpeed;
 
+    int stage;
 
 
 
-
-    public Wall(Player player) : base("GrassWallRightSmall.png")
+    public Wall(Player player, int stage) : base("wall_tiles.png", 3, 1)
     {
-        SetOrigin(width / 2, 0);
+        SetOrigin(width / 2 - 32, 0);
         moveSpeed = 3;
- 
+
+        this.stage = stage;
         this.player = player;
 
-
-        
-
+        SetFrame(0);
     }
 
 
@@ -32,13 +31,25 @@ public class Wall : Sprite
     void Update()
     {
         WallMovement();
-
+        UpdateEnv();
         //y += 5; //test for wall reset
-
-
     }
 
-
+    void UpdateEnv()
+    {
+        switch (stage)
+        {
+            case 1:
+                SetFrame(0);
+                break;
+            case 2:
+                SetFrame(1);
+                break;
+            case 3:
+                SetFrame(2);
+                break;
+        }
+    }
 
 
 

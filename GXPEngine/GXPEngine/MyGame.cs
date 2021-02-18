@@ -6,7 +6,7 @@ public class MyGame : Game
 {
     MainMenu mainMenu;
     Level level;
-/*    GameOverMenu gameOverMenu;*/
+    GameOverMenu gameOverMenu;
 
     Cursor cursor;
 
@@ -18,6 +18,8 @@ public class MyGame : Game
     float musicVolume;
 	float vfxVolume; //doesn't control jump sound volume yet
 
+    int score;
+
 
 	public MyGame() : base(1920, 1080, true, false, -1, -1, true)
 	{
@@ -25,9 +27,9 @@ public class MyGame : Game
 
         mainMenu = new MainMenu();
 
-/*        gameOverMenu = new GameOverMenu();*/
-        /*AddChild(gameOverMenu);
-*/
+        gameOverMenu = new GameOverMenu(score);
+        /*AddChild(gameOverMenu);*/
+
         AddChild(mainMenu);
 
         targetFps = 60;
@@ -49,16 +51,37 @@ public class MyGame : Game
 	{
         if (level.Lost())
         {
+
             level.Destroy();
             cursor.Destroy();
-            level = new Level();
-            AddChild(level);
+
+            gameOverMenu = new GameOverMenu(score);
+            AddChild(gameOverMenu);
+
+            /*            level = new Level();
+                        AddChild(level);*/
             cursor = new Cursor();
             AddChild(cursor);
+            level.lost = false;
         }
+
+        if (gameOverMenu.Restart())
+        {
+            gameOverMenu.Destroy();
+
+            mainMenu = new MainMenu();
+            AddChild(mainMenu);
+        }
+
+
 
         MusicController();
         startGame();
+        getScore();
+
+        /*Console.WriteLine(score);
+*/
+
     }
 
 
@@ -68,10 +91,13 @@ public class MyGame : Game
         if (mainMenu.Start())
         {
             mainMenu.Destroy();
+
             level = new Level();
-            AddChild(level);
-            mainMenu.isStarting = false;
             cursor = new Cursor();
+
+            mainMenu.isStarting = false;
+
+            AddChild(level);
             AddChild(cursor);
         }
     }
@@ -85,8 +111,13 @@ public class MyGame : Game
 	void MusicController()
     {
         musicChannel.Volume = musicVolume;
-		vfx.Volume = vfxVolume;
+		vfx.Volume = vfxVolume; //does not control anything right now
 
+    }
+
+    void getScore()
+    {
+        score = level.score;
     }
 
 }

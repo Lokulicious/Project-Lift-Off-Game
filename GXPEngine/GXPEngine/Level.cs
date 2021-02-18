@@ -46,7 +46,7 @@ namespace GXPEngine
         bool dashMade = false;
 
 
-        bool lost = false;
+        public bool lost = false;
         int dropperTimer;
         bool dropperTimed = false;
 
@@ -54,6 +54,8 @@ namespace GXPEngine
 
 
         bool shieldParticleMade = false;
+
+        public int score;
         
         public Level()
         {
@@ -93,7 +95,7 @@ namespace GXPEngine
 
             for (y = 0; y < 18; y++)
             {
-                Wall wallLeft = new Wall(player);
+                Wall wallLeft = new Wall(player, 1);
                 wallLeft.y = y * wallLeft.height - wallStartPositionY;
                 wallLeft.x = wallPositionX;
                 wallLeft.scaleX = -1;
@@ -102,7 +104,7 @@ namespace GXPEngine
             
             for (y = 0; y < 18; y++)
             {
-                Wall wallRight = new Wall(player);
+                Wall wallRight = new Wall(player, 1);
                 wallRight.y = y * wallRight.height - wallStartPositionY;
                 wallRight.x = game.width - wallPositionX;
                 AddChild(wallRight);
@@ -212,6 +214,10 @@ namespace GXPEngine
 
             Arrow(player);
             DisplayShieldParticle();
+
+
+
+            score = player.checkScore()/10;
         }
 
         void switchBG()

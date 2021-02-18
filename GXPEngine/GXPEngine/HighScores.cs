@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace GXPEngine
 {
-    class HighScoreText : Sprite
+    class HighScores : Sprite
     {
-        public HighScoreText(float textHeight) : base("HighScoresText.png")
+        public HighScores(float posY, string filename) : base(filename)
         {
             SetOrigin(width / 2, height / 2);
 
             this.x = game.width / 2;
-            this.y = (game.height / 2) - textHeight;
+            this.y = (game.height / 2) - posY;
         }
 
     }
