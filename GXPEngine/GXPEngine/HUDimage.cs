@@ -8,10 +8,11 @@ namespace GXPEngine
 {
     class HUDimage : Sprite
     {
-        public HUDimage(string filename, int xPos, int yPos): base(filename)
+        public HUDimage(string filename, int xPos, int yPos, float scale): base(filename)
         {
             x = xPos;
             y = yPos;
+            this.scale = scale;
         }
     }
 }

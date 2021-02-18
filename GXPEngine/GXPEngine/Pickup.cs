@@ -18,7 +18,10 @@ namespace GXPEngine
         public void Update()
         {
             y += 3;
-            
+            if (y > game.height)
+            {
+                this.Destroy();
+            }
 
         }
         void OnCollision(GameObject other)

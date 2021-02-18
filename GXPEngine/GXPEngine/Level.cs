@@ -21,13 +21,14 @@ namespace GXPEngine
 
         GameObject toAdd = new Pivot();
 
-        HUD shieldhud = new HUD("No shield", 550, 75,64);
-        HUDimage shieldHudImg = new HUDimage("shieldIcon.png", 300, 25);
+        HUD shieldhud = new HUD("No shield", 390, 15,48);
+        HUDimage shieldHudImg = new HUDimage("shieldIcon.png", 225, 10, 0.6f);
 
-        HUD scorehud = new HUD("Score: 0", 1750, 25,32);
+        HUD scorehud = new HUD(" ", 2200, 15,38);
+        HUDimage scoreHudImg = new HUDimage("scoreHud.png", 1550, 10, 0.5f);
 
-        HUD dashhud = new HUD("Dashes Available: 0", 550, 350,64);
-        HUDimage dashHudImg = new HUDimage("dashIcon.png", 300,250);
+        HUD dashhud = new HUD("Dashes Available: 0", 140, 20,48);
+        HUDimage dashHudImg = new HUDimage("dashIcon.png", 25,10,0.6f);
 
         Wall wallLeft;
         Wall wallRight;
@@ -45,6 +46,8 @@ namespace GXPEngine
         bool secondDropperMade = false;
         bool thirdDropperMade = false;
         bool fourthDropperMade = false;
+        bool fifthDropperMade = false;
+
         bool shieldMade = false;
         bool scoreBallMade = false;
         bool scoreDoubleMade = false;
@@ -136,6 +139,7 @@ namespace GXPEngine
             AddChild(dashhud);
             AddChild(dashHudImg);
             AddChild(shieldHudImg);
+            AddChild(scoreHudImg);
 
             arrow = new Arrow(player, player.x, player.y);
             AddChild(arrow);
@@ -166,10 +170,10 @@ namespace GXPEngine
 
         void loadDroppers()
         {
-            AddChild(new PickupDropper(10000, 0, 50));
-            AddChild(new PickupDropper(25000, 1, 50));
-            AddChild(new PickupDropper(32000, 2, 50));
-            AddChild(new PickupDropper(38000, 3, 50));
+            AddChild(new PickupDropper(5000, 0, 500000));
+            AddChild(new PickupDropper(18000, 1, 500000));
+            AddChild(new PickupDropper(24000, 2, 500000));
+            AddChild(new PickupDropper(31500, 3, 500000));
         }
 
         void Update()
@@ -187,18 +191,34 @@ namespace GXPEngine
             {
                 
                 firstDropperMade = true;
-                AddChild(new Dropper(4000, 6, 4, player, false, false));
+                AddChild(new Dropper(3000, 8, 4, player, false, false));
             }
             if (getLevelTime() >= 24900 && getLevelTime() <= 25100 && !secondDropperMade)
             {
                 secondDropperMade = true;
-                AddChild(new Dropper(4000, 6, 4, player, false, false));
-                AddChild(new Dropper(8000, 3, 3, player, true, false));
+                AddChild(new Dropper(3600, 13, 5, player, false, false));
+                AddChild(new Dropper(8100, 6, 3, player, true, false));
             }
+            if (getLevelTime() >= 73400 && getLevelTime() <= 73600 && !thirdDropperMade)
+            {
+                thirdDropperMade = true;
+                player.updateSlideSpeed(3);
+                AddChild(new Dropper(3600, 7, 5, player, false, false));
+                AddChild(new Dropper(8100, 3, 3, player, true, false));
 
-           
-
-
+            }
+            if (getLevelTime() >= 99100 && getLevelTime() <= 100100 && !fourthDropperMade)
+            {
+                fourthDropperMade = true;
+                currentDropper = new Dropper(3500, 7, 7, player, false, false);
+                AddChild(new Dropper(6000, 4, 5, player, true, false));
+                AddChild(currentDropper);
+            }
+            if (getLevelTime() >= 125900 && getLevelTime() <= 126100 && !fifthDropperMade)
+            {
+                fifthDropperMade = true;
+                player.updateSlideSpeed(3.5f);
+            }
 
             loopSpaceLevel();
 
@@ -211,64 +231,36 @@ namespace GXPEngine
         {
             if(player.getHeightClimbed()> 0)
             {
-                if (currentDropper.Done() && canset)
-                {
-                    loopedPickupMade = false;
-                    pickupTime = Time.now;
-                    canset = false;
-                }
-                else if (firstLooper || (currentDropper.Done()  && Time.now - pickupTime > 5000))
+                
+                if (firstLooper || (currentDropper.Done()  && Time.now - pickupTime > 2000))
                 {
                     canset = true;
-                    int chosenrocks = Choose();
+                    int chosenrocks = ChooseSpace();
                     if (chosenrocks == 1)
                     {
-                        currentDropper = new Dropper(4000, 6,5, player, true, false);
+                        AddChild(new Dropper(3000, 7, 8, player, false, false));
+                        currentDropper = new Dropper(5300, 4, 6, player, true, false);
                         AddChild(currentDropper);
+                        Console.WriteLine("normal");
                     }
                     else if (chosenrocks == 2)
                     {
-                        currentDropper = new Dropper(4000, 6,5, player, false, false);
+                        AddChild(new Dropper(2500, 4, 10, player, false, false));
+                        currentDropper = new Dropper(3700, 2, 8, player, true, false);
                         AddChild(currentDropper);
+                        Console.WriteLine("burst");
                     }
-                    else if (chosenrocks == 3 || chosenrocks == 4)
+                    else if (chosenrocks == 3)
                     {
-                        currentDropper = new Dropper(4000, 6,5, player, false, true);
+                        AddChild(new Dropper(2700, 6, 7, player, false, false));
+                        currentDropper = new Dropper(5000, 4, 5, player, true, false);
                         AddChild(currentDropper);
+                        Console.WriteLine("chill");
                     }
                     firstLooper = false;
                 }
 
-                else if (!loopedPickupMade)
-                {
-                    int chosenPickup = Choose();
-                    if (chosenPickup == 1)
-                    {
-                        Pickup toAdd = new Shield(225);
-                        AddChild(toAdd);
-                        game.SetChildIndex(toAdd, game.GetChildren().Count - 1);
-                    }
-                    else if (chosenPickup == 2)
-                    {
-                        Pickup toAdd = new ScoreBall(225);
-                        AddChild(toAdd);
-                        game.SetChildIndex(toAdd, game.GetChildren().Count - 1);
-                    }
-                    else if (chosenPickup == 3)
-                    {
-                        Pickup toAdd = new Dash(225);
-                        AddChild(toAdd);
-                        game.SetChildIndex(toAdd, game.GetChildren().Count - 1);
-                    }
-                    else if (chosenPickup == 4)
-                    {
-                        Pickup toAdd = new DoubleScore(225);
-                        AddChild(toAdd);
-                        game.SetChildIndex(toAdd, game.GetChildren().Count - 1);
-                    }
-                    loopedPickupMade = true;
-                    Console.WriteLine("pickupmade");
-                }
+               
                 
             }
         }
@@ -276,6 +268,12 @@ namespace GXPEngine
         {
             Random rando = new Random();
             int selection = rando.Next(1, 5);
+            return selection;
+        }
+        public int ChooseSpace()
+        {
+            Random rando = new Random();
+            int selection = rando.Next(1, 4);
             return selection;
         }
 
@@ -386,7 +384,7 @@ namespace GXPEngine
 
             shieldhud.updateMessage(" : " + player.getShields());
 
-            scorehud.updateMessage("Score: " + player.checkScore()/10);
+            scorehud.updateMessage("" + player.checkScore()/10);
 
             dashhud.updateMessage(" : " + player.getDashes());
         }
@@ -461,6 +459,7 @@ namespace GXPEngine
                 shieldParticle.Destroy();
                 shieldParticleMade = false;
             }
+            
            
         }
 

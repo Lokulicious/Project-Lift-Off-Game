@@ -24,7 +24,7 @@ namespace GXPEngine
         int startDoubleScore;
         int noOfDashes = 0;
         bool dashStart = false;
-
+        bool shieldHandled = false;
 
 
         public bool rightSide = false;
@@ -62,6 +62,7 @@ namespace GXPEngine
         bool mouseRight;
         int dashCooldown;
         int dashTimer;
+        int shieldBreakTime = 0;
 
 
         Sound jump;
@@ -107,6 +108,7 @@ namespace GXPEngine
             IsMouseRight();
             checkDash();
             UpdateScore();
+            resetShield();
 
             vfx.Volume = 0.1f;
         }
@@ -282,7 +284,7 @@ namespace GXPEngine
 
         void Dash()
         {
-            if (Input.GetKeyDown(Key.SPACE) && isJumping && dashCooldown == 0)
+            if (Input.GetKeyDown(Key.SPACE) && isJumping)
             {
                 dashStart = true;
                 if (jumpAngle > 0 && IsMouseRight())
@@ -415,11 +417,29 @@ namespace GXPEngine
                 {
                     
                     ((DroppedThing)i).Break();
-                    noOfShields--;
+                    if (!shieldHandled)
+                    {
+                        noOfShields--;
+                        shieldHandled = true;
+                        shieldBreakTime = Time.now;
+                    }
+                }  
+            }
+            return false;
+        }
+        public void resetShield()
+        {
+            if (!shieldHandled)
+            {
+                shieldBreakTime = Time.now;
+            }
+            else
+            {
+                if(Time.now - shieldBreakTime > 200)
+                {
+                    shieldHandled = false;
                 }
             }
-
-            return false;
         }
         public bool onMap()
         {
@@ -435,9 +455,8 @@ namespace GXPEngine
             {
                 if (i is Shield)
                 {
-                    if (noOfShields < 3)
-                    {
-                        
+                    if (noOfShields < 4)
+                    { 
                         i.LateDestroy();
                         noOfShields ++;
                         shieldPickup = new Sound("shield.wav");
@@ -461,10 +480,17 @@ namespace GXPEngine
                 }
                 else if(i is Dash)
                 {
-                    if (noOfDashes < 6)
+                    if (noOfDashes < 5)
                     {
                         i.LateDestroy();
                         noOfDashes += 2;
+                        dashPickup = new Sound("dash.wav");
+                        dashPickup.Play();
+                    }
+                    else if (noOfDashes == 5)
+                    {
+                        i.LateDestroy();
+                        noOfDashes += 1;
                         dashPickup = new Sound("dash.wav");
                         dashPickup.Play();
                     }
@@ -515,6 +541,11 @@ namespace GXPEngine
         public int getDashes()
         {
             return noOfDashes;
+        }
+
+        public void updateSlideSpeed(float sS)
+        {
+            slideSpeed = sS;
         }
        
 

@@ -25,7 +25,7 @@ namespace GXPEngine
         {
             if (!Done())
             {
-                Console.WriteLine("called");
+                
                 dropPickups();
                 checkSafety();
             }

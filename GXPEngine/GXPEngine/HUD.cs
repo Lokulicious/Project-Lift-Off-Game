@@ -13,7 +13,7 @@ namespace GXPEngine
         StringFormat drawFormat = new StringFormat();
         int xPos;
         int yPos;
-        public HUD(string s, int x, int y, float fontSize) : base(2000, 1080, true)
+        public HUD(string s, int x, int y, float fontSize) : base(2500, 1080, true)
         {
             Messagefont = new Font("Arial", fontSize);
             message = s;
