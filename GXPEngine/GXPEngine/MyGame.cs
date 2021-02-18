@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using GXPEngine;
 
@@ -17,7 +18,7 @@ public class MyGame : Game
 
     float musicVolume;
 	float vfxVolume; //doesn't control jump sound volume yet
-
+    List<GameObject> children = new List<GameObject>();
     int score;
 
 
@@ -49,17 +50,16 @@ public class MyGame : Game
 
     void Update()
 	{
+        children = level.GetChildren();
         if (level.Lost())
         {
             gameOverMenu = new GameOverMenu(score, level, true);
-            level.Destroy();
-            cursor.Destroy();
+            foreach (GameObject child in GetChildren())
+            {
+                child.LateDestroy();
+            }
 
-
-            AddChild(gameOverMenu);
-
-            /*            level = new Level();
-                        AddChild(level);*/
+            AddChild(gameOverMenu);   
             cursor = new Cursor();
             AddChild(cursor);
             level.lost = false;

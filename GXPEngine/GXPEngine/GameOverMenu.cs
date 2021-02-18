@@ -8,7 +8,7 @@ namespace GXPEngine
 {
     class GameOverMenu : GameObject
     {
-        private Player player;
+        private Player player = new Player();
         private Level _level;
 
         HighScoreText highScoreText = new HighScoreText(350);
