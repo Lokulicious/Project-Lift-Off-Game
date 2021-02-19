@@ -68,7 +68,10 @@ public class MyGame : Game
         }
         if (gameOverMenu.Restart() && !mainMenu.inMenu)
         {
-            gameOverMenu.Destroy();
+            foreach (GameObject child in GetChildren())
+            {
+                child.LateDestroy();
+            }
 
             mainMenu = new MainMenu();
             AddChild(mainMenu);
@@ -88,7 +91,10 @@ public class MyGame : Game
     {
         if (mainMenu.Start())
         {
-            mainMenu.Destroy();
+            foreach (GameObject child in GetChildren())
+            {
+                child.LateDestroy();
+            }
 
             level = new Level();
             cursor = new Cursor();
