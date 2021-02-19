@@ -31,7 +31,9 @@ public class MyGame : Game
         gameOverMenu = new GameOverMenu(score, level, false);
         /*AddChild(gameOverMenu);*/
 
+        mainMenu.inMenu = true;
         AddChild(mainMenu);
+        mainMenu.inMenu = true;
 
         targetFps = 30;
 
@@ -64,7 +66,7 @@ public class MyGame : Game
             
             level.lost = false;
         }
-        if (gameOverMenu.Restart())
+        if (gameOverMenu.Restart() && !mainMenu.inMenu)
         {
             gameOverMenu.Destroy();
 
@@ -92,6 +94,7 @@ public class MyGame : Game
             cursor = new Cursor();
 
             mainMenu.isStarting = false;
+            mainMenu.inMenu = false;
 
             AddChild(level);
             AddChild(cursor);

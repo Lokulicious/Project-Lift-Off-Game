@@ -21,6 +21,8 @@ using GXPEngine;
     float wallStartPositionY = 100;
 
     public bool isStarting = false;
+    public bool inMenu;
+
 
     public MainMenu()
     {
