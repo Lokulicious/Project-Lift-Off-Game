@@ -453,7 +453,7 @@ namespace GXPEngine
             {
                 if (i is Shield)
                 {
-                    if (noOfShields < 4)
+                    if (noOfShields < 3)
                     { 
                         i.LateDestroy();
                         noOfShields ++;
