@@ -12,10 +12,11 @@ namespace GXPEngine
         private Level _level;
 
         HighScoreText highScoreText = new HighScoreText(350);
-        YourScoreText yourScoreText = new YourScoreText(0, 200);
+        YourScoreText yourScoreText = new YourScoreText(0, 100);
         /*HighScores[] highScores = new HighScores[4];*/
         PlayerIcon playerIcon = new PlayerIcon(200);
         Spacetocontinue spacetocontinue = new Spacetocontinue(0, 80);
+        Gameovertext gameovertext = new Gameovertext(0, 400);
         
         HUD scorehud;
 
@@ -25,7 +26,7 @@ namespace GXPEngine
 
         public GameOverMenu(int score, Level level, bool gameOver)
         {
-            scorehud = new HUD("0", (game.width / 2) + 130, (game.height / 2), 72);
+            scorehud = new HUD("0", (game.width / 2) + 130, (game.height / 2) + 100, 72);
 
             _level = level;
             _score = score;
@@ -52,6 +53,7 @@ namespace GXPEngine
             AddChild(playerIcon);
             AddChild(scorehud);
             AddChild(spacetocontinue);
+            LateAddChild(gameovertext);
 
 
         }

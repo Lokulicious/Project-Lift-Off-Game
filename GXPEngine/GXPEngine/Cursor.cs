@@ -8,7 +8,7 @@ namespace GXPEngine
     {
         public Cursor() : base("cursor.png")
         {
-
+            SetScaleXY(2);
         }
 
         void Update()

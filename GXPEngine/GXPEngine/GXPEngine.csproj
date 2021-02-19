@@ -120,6 +120,7 @@
     <Compile Include="Wall.cs" />
     <Compile Include="Pickup.cs" />
     <Compile Include="PlayerIcon.cs" />
+    <Compile Include="Gameovertext.cs" />
     <Compile Include="YourScoreText.cs" />
   </ItemGroup>
   <ItemGroup>

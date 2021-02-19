@@ -30,6 +30,8 @@ namespace GXPEngine
         HUD dashhud = new HUD("Dashes Available: 0", 140, 20,48);
         HUDimage dashHudImg = new HUDimage("dashIcon.png", 25,10,0.6f);
 
+/*        HUDimage spaceToDash;*/
+
         Wall wallLeft;
         Wall wallRight;
 
@@ -76,6 +78,9 @@ namespace GXPEngine
             shieldParticle = new ShieldParticle(player);
             loadDroppers();
             levelStartTime = Time.now;
+
+/*            spaceToDash = new HUDimage("space_to_dash.png", game.)*/
+
         }
 
         int getLevelTime()
