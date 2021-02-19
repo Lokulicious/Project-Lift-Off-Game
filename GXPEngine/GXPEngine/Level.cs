@@ -84,10 +84,13 @@ namespace GXPEngine
             levelStartTime = Time.now;
 
             int controlX = game.width - 550;
-            int controlY = (game.height / 2) - 100;
+            int controlY = game.height - 200;
 
             dashText = new HUDimage("space_to_dash.png", controlX, controlY, 0.5f);
             jumpText = new HUDimage("lmbtojump.png", controlX, controlY + 50, 0.5f);
+
+            dashText.alpha = 0.8f;
+            jumpText.alpha = 0.8f;
 
             AddChild(dashText);
             AddChild(jumpText);
