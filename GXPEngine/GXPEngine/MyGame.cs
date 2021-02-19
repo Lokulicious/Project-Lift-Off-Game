@@ -68,6 +68,8 @@ public class MyGame : Game
         }
         if (gameOverMenu.Restart() && !mainMenu.inMenu)
         {
+
+            gameOverMenu._gameOver = false;
             foreach (GameObject child in GetChildren())
             {
                 child.LateDestroy();
