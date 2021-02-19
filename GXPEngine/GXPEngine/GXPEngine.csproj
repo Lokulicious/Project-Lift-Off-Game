@@ -61,6 +61,7 @@
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />
     <Compile Include="GXPEngine\AddOns\TiledLoader.cs" />
     <Compile Include="HighScores.cs" />
+    <Compile Include="Spacetocontinue.cs" />
     <Compile Include="HighScoreText.cs" />
     <Compile Include="HUD.cs" />
     <Compile Include="HUDimage.cs" />

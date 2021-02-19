@@ -15,7 +15,7 @@ namespace GXPEngine
         YourScoreText yourScoreText = new YourScoreText(0, 200);
         /*HighScores[] highScores = new HighScores[4];*/
         PlayerIcon playerIcon = new PlayerIcon(200);
-
+        Spacetocontinue spacetocontinue = new Spacetocontinue(0, 80);
         
         HUD scorehud;
 
@@ -51,6 +51,7 @@ namespace GXPEngine
 
             AddChild(playerIcon);
             AddChild(scorehud);
+            AddChild(spacetocontinue);
 
 
         }
