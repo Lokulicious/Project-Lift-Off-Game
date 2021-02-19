@@ -19,7 +19,7 @@ namespace GXPEngine
 
         private int score;
 
-        int noOfShields = 3;
+        int noOfShields = 0;
         bool hasDoubleScore = false;
         int startDoubleScore;
         int noOfDashes = 0;

@@ -21,7 +21,7 @@ namespace GXPEngine
 
         
 
-        public DroppedThing(float fallspeed, int xPos, Player player, string filename) : base(filename, 7, 1)
+        public DroppedThing(float fallspeed, int xPos, Player player, string filename) : base(filename, 5, 1)
         {
             this.fallspeed = fallspeed;
             x = xPos;
