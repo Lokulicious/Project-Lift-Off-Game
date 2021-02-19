@@ -30,7 +30,8 @@ namespace GXPEngine
         HUD dashhud = new HUD("Dashes Available: 0", 140, 20,48);
         HUDimage dashHudImg = new HUDimage("dashIcon.png", 25,10,0.6f);
 
-/*        HUDimage spaceToDash;*/
+        HUDimage dashText;
+        HUDimage jumpText;
 
         Wall wallLeft;
         Wall wallRight;
@@ -69,6 +70,9 @@ namespace GXPEngine
         float arrowRotation;
 
         public int score;
+
+
+
         
         public Level()
         {
@@ -79,8 +83,14 @@ namespace GXPEngine
             loadDroppers();
             levelStartTime = Time.now;
 
-/*            spaceToDash = new HUDimage("space_to_dash.png", game.)*/
+            int controlX = game.width - 550;
+            int controlY = (game.height / 2) - 100;
 
+            dashText = new HUDimage("space_to_dash.png", controlX, controlY, 0.5f);
+            jumpText = new HUDimage("lmbtojump.png", controlX, controlY + 50, 0.5f);
+
+            AddChild(dashText);
+            AddChild(jumpText);
         }
 
         int getLevelTime()

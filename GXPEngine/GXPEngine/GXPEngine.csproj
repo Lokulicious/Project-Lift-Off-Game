@@ -61,6 +61,7 @@
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />
     <Compile Include="GXPEngine\AddOns\TiledLoader.cs" />
     <Compile Include="HighScores.cs" />
+    <Compile Include="SpaceDashText.cs" />
     <Compile Include="Spacetocontinue.cs" />
     <Compile Include="HighScoreText.cs" />
     <Compile Include="HUD.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Pickup.cs" />
     <Compile Include="PlayerIcon.cs" />
     <Compile Include="Gameovertext.cs" />
+    <Compile Include="Lmbjumptext.cs" />
     <Compile Include="YourScoreText.cs" />
   </ItemGroup>
   <ItemGroup>
