@@ -19,6 +19,8 @@ namespace GXPEngine
 
         Sound breakSound;
 
+        bool handled;
+
         
 
         public DroppedThing(float fallspeed, int xPos, Player player, string filename) : base(filename, 5, 1)
@@ -40,13 +42,20 @@ namespace GXPEngine
             if (broken)
             {
                 Animate();
-                if (Time.now - brokenTime > 800)
+                if (Time.now - brokenTime > 300)
                 {
                     this.LateDestroy();
                 }
             }
         }
-
+        public bool Handled()
+        {
+            return handled;
+        }
+        public void Handle()
+        {
+            handled = true;
+        }
         public void Break()
         {
             broken = true;

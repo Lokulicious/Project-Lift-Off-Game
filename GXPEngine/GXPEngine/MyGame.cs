@@ -22,7 +22,7 @@ public class MyGame : Game
     int score;
 
 
-	public MyGame() : base(1920, 1080, false, false, -1, -1, true)
+	public MyGame() : base(1920, 1080, true, false, -1, -1, true)
 	{
         level = new Level();
 

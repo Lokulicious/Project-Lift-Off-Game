@@ -189,7 +189,6 @@ namespace GXPEngine
             
             if (!firstDropperMade)
             {
-                
                 firstDropperMade = true;
                 AddChild(new Dropper(3000, 8, 4, player, false, false));
             }

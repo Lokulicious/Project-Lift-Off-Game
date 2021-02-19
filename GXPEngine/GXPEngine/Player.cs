@@ -415,13 +415,11 @@ namespace GXPEngine
                 }
                 else if (i is DroppedThing && noOfShields > 0)
                 {
-                    
-                    ((DroppedThing)i).Break();
-                    if (!shieldHandled)
+                    if (!((DroppedThing)i).Handled())
                     {
+                        ((DroppedThing)i).Break();
                         noOfShields--;
-                        shieldHandled = true;
-                        shieldBreakTime = Time.now;
+                        ((DroppedThing)i).Handle();
                     }
                 }  
             }
